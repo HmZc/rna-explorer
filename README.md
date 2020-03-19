@@ -16,14 +16,21 @@ L'app disposera dans un premier temps d'une recherche comportant des filtres (se
 ## Techno :
 
 VueJS
-
+NodeJS (Express)
+Ant Design Vue
 
 ## Diagramme UML
 
 ```mermaid
 sequenceDiagram
 Frontend ->> test: get
-
-
-
 ```
+
+## Lancer l'app
+
+```bash
+# install dependencies
+$ yarn install
+
+# serve with hot reload at localhost:3000
+$ yarn dev
