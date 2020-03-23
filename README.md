@@ -6,8 +6,8 @@ https://www.data.gouv.fr/fr/datasets/repertoire-national-des-associations/
 L'app disposera dans un premier temps d'un système de recherche d'associations comportant des filtres (secteurs/régions... ), de différentes représentations graphiques permettant d'offrir différents overviews sur différentes mailles. 
 
 ## Demo
-
-A venir
+(deployement auto sur chaque push dans master)
+https://assoc-finder.herokuapp.com/
 
 ## Stack :
 
