@@ -1,7 +1,6 @@
-une application web offrant un outil de recherche ainsi qu'un module d'analyse exploratoire (sous forme de dataviz) des d'associations relevant de la [loi du 1er juillet 1901](https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=LEGITEXT000006069570)
+Une application web offrant un outil de recherche ainsi qu'un module d'analyse exploratoire (sous forme de dataviz) des différentes associations relevant de la [loi du 1er juillet 1901](https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=LEGITEXT000006069570)
 
-Les données sont principalement issues du répertoire national des associations
-https://www.data.gouv.fr/fr/datasets/repertoire-national-des-associations/
+Les données utilisées proviennent des APIs publiques d'opendatasoft. 
 
 ## Demo
 
