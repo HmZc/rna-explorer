@@ -3,8 +3,7 @@ import OpenassoLogo from '~/components/openasso-logo.vue'
 
 export default {
     name: `openasso-header`,
-    components: { OpenassoLogo },
-    props: {}
+    components: { OpenassoLogo }
 }
 </script>
 
@@ -14,13 +13,13 @@ export default {
         <a-menu
             theme="dark"
             mode="horizontal"
-            :default-selected-keys="['1']"
+            :default-selected-keys="[$route.path]"
             :style="{ lineHeight: '64px' }"
         >
-            <a-menu-item key="1">
+            <a-menu-item key="/">
                 <nuxt-link to="/">Rechercher</nuxt-link>
             </a-menu-item>
-            <a-menu-item key="2">
+            <a-menu-item key="/explorer">
                 <nuxt-link to="explorer">Explorer</nuxt-link>
             </a-menu-item>
         </a-menu>
