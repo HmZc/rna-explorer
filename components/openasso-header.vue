@@ -4,12 +4,7 @@ import OpenassoLogo from '~/components/openasso-logo.vue'
 export default {
     name: `openasso-header`,
     components: { OpenassoLogo },
-    props: {
-        path: {
-            type: String,
-            required: true
-        }
-    }
+    props: {}
 }
 </script>
 

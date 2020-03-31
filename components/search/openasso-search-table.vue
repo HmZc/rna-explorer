@@ -10,16 +10,23 @@ export default {
             columns: [
                 {
                     title: 'nom',
-                    dataIndex: 'fields.titre',
-                    key: 'fields.titre',
-                    width: 400
+                    dataIndex: 'fields',
+                    key: 'fields',
+                    width: 400,
+                    customRender: (fields) => {
+                        return fields.titre
+                            ? fields.titre
+                            : fields.nouveau_titre
+                            ? fields.nouveau_titre
+                            : fields.ancien_titre
+                    }
                 },
                 {
                     title: 'tags',
                     dataIndex: 'fields.theme_libelle',
                     key: 'fields.theme_libelle',
                     scopedSlots: { customRender: 'tags' },
-                    width: 450
+                    width: 500
                 },
                 {
                     title: 'deptartements',
@@ -66,7 +73,7 @@ export default {
             </a-tag>
         </span>
         <span slot="website" slot-scope="website">
-            {{ website ? website : 'non renseigné' }}
+            <a :href="website" target="_blank">{{ website }}</a>
         </span>
         <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
             {{
