@@ -62,7 +62,6 @@ export default {
         size="small"
         :pagination="false"
         :loading="loading"
-        :rowKey="(record) => record.recordid"
     >
         <span slot="tags" slot-scope="tags">
             <a-tag
