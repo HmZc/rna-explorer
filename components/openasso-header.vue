@@ -25,3 +25,9 @@ export default {
         </a-menu>
     </a-layout-header>
 </template>
+
+<style lang="scss" scoped>
+.ant-layout-header {
+    padding: 0;
+}
+</style>

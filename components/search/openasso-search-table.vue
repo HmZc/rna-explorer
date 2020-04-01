@@ -33,7 +33,7 @@ export default {
                     dataIndex: 'fields.dept',
                     key: 'fields.dept',
                     defaultSortOrder: 'null',
-                    sorter: (a, b) => a.fields.dept - b.fields.dept,
+                    // sorter: (a, b) => a.fields.dept - b.fields.dept,
                     width: 150
                 },
                 {
@@ -56,13 +56,14 @@ export default {
 
 <template>
     <a-table
-        :scroll="{ y: 500 }"
+        :scroll="{ y: 'calc(100vh - 128px)' }"
         :columns="columns"
         :data-source="data"
         size="small"
         :pagination="false"
         :loading="loading"
     >
+        <!-- :rowKey="(data) => data.fields" -->
         <span slot="tags" slot-scope="tags">
             <a-tag
                 v-for="tag in tags ? tags.split(',') : tags"

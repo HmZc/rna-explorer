@@ -1,9 +1,10 @@
 <script>
 import OpenassoHeader from '~/components/openasso-header.vue'
 import OpenassoSearchTable from '~/components/search/openasso-search-table.vue'
+import OpenassoSidebar from '~/components/search/openasso-sidebar.vue'
 
 export default {
-    components: { OpenassoHeader, OpenassoSearchTable },
+    components: { OpenassoHeader, OpenassoSearchTable, OpenassoSidebar },
     data() {
         return {
             apiPaging: 0,
@@ -31,9 +32,10 @@ export default {
             this.loading = true
             try {
                 const response = await $axios.$get(
-                    `https://public.opendatasoft.com/api/records/1.0/search/?dataset=associations&rows=100&&start=${(this.apiPaging += 1)}`
+                    `https://public.opendatasoft.com/api/records/1.0/search/?dataset=associations&rows=100&&start=${this.apiPaging}`
                 )
                 this.loading = false
+                this.apiPaging++
                 return (this.data = this.data.concat(response.records))
             } catch (error) {}
         }
@@ -41,20 +43,29 @@ export default {
 }
 </script>
 <template>
-    <a-layout class="wrapper">
-        <openasso-header />
-        <a-layout-content>
-            <div class="wrapper-content">
-                <openasso-search-table :data="data" :loading="loading" />
-            </div>
-        </a-layout-content>
+    <a-layout>
+        <a-layout-header class="header">
+            <openasso-header />
+        </a-layout-header>
+        <a-layout>
+            <openasso-sidebar />
+            <a-layout style="padding: 0 24px 24px">
+                <a-layout-content
+                    :style="{
+                        background: '#fff',
+                        padding: '0',
+                        margin: 0,
+                        minHeight: '280px'
+                    }"
+                >
+                    <openasso-search-table :data="data" :loading="loading" />
+                </a-layout-content>
+            </a-layout>
+        </a-layout>
     </a-layout>
 </template>
 
 <style lang="scss" scoped>
-.ant-layout {
-    height: 100vh;
-}
 .ant-layout-content {
     padding: var(--big-gutter);
 }
