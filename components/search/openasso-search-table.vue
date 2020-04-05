@@ -33,7 +33,6 @@ export default {
                     dataIndex: 'fields.dept',
                     key: 'fields.dept',
                     defaultSortOrder: 'null',
-                    // sorter: (a, b) => a.fields.dept - b.fields.dept,
                     width: 150
                 },
                 {

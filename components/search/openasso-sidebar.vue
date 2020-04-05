@@ -2,18 +2,18 @@
 export default {
     name: `openasso-sidebar`,
     props: {
-        totalAssociations: { type: Number, required: true },
+        totalAssociations: { type: Number, required: true }
     },
     data() {
         return {
-            search: '',
+            search: ''
         }
     },
     methods: {
         formatedNhits() {
             return new Intl.NumberFormat('fr-FR').format(this.totalAssociations)
-        },
-    },
+        }
+    }
 }
 </script>
 
