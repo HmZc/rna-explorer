@@ -70,8 +70,8 @@ export default {
             size="small"
             :pagination="false"
             :loading="loading"
+            :rowKey="(record, i) => `item-${i}`"
         >
-            <!-- :rowKey="(data) => data.fields" -->
             <span slot="tags" slot-scope="tags">
                 <a-tag
                     v-for="tag in tags ? tags.split(',') : tags"
