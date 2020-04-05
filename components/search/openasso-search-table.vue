@@ -57,6 +57,12 @@ export default {
 <template>
     <div>
         <a-table
+            :rowClassName="
+                (record, index) =>
+                    // antd does not provide a way to make striped rows in table
+                    // it should be done like that if usin expandable row
+                    index % 2 === 0 ? 'ant-table-tbody--row-grey' : ''
+            "
             :scroll="{ y: 'calc(100vh - 128px)' }"
             table-layout="fixed"
             :columns="columns"
@@ -90,8 +96,8 @@ export default {
                     :href="`https://www.google.fr/search?q=${actions.idassoc}`"
                     target="_blank"
                     title="recherche Google"
-                    >recherche par RNA</a
-                >
+                    >recherche par RNA
+                </a>
             </span>
             <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
                 {{

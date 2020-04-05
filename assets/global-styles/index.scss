@@ -9,12 +9,12 @@
 }
 
 /* Ant Design Vue table style */
-.ant-table-expanded-row {
-    color: #949494;
-}
 .ant-table-body {
     font-size: 0.8rem;
 }
-.ant-table-tbody .ant-table-row:nth-child(odd) {
+.ant-table-tbody--row-grey {
     background: whitesmoke;
+}
+.ant-table-expanded-row {
+    color: #949494;
 }

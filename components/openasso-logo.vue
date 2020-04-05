@@ -10,7 +10,8 @@ export default {
 .logo {
     color: white;
     font-weight: bold;
-    margin: 0 3em 0 0;
+    margin: 0 50px 0 0;
     float: left;
+    font-size: 2em;
 }
 </style>
