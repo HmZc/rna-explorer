@@ -13,6 +13,7 @@ export default {
                     dataIndex: 'fields',
                     key: 'fields',
                     ellipsis: true,
+                    width: 400,
                     customRender: (fields) => {
                         return fields.titre
                             ? fields.titre
@@ -26,14 +27,14 @@ export default {
                     dataIndex: 'fields.theme_libelle',
                     key: 'fields.theme_libelle',
                     scopedSlots: { customRender: 'tags' },
-                    ellipsis: true
+                    ellipsis: true,
+                    width: 500
                 },
                 {
                     title: 'deptartements',
                     dataIndex: 'fields.dept',
                     key: 'fields.dept',
-                    defaultSortOrder: 'null',
-                    width: 150
+                    width: 120
                 },
                 {
                     title: 'commune',
@@ -42,11 +43,10 @@ export default {
                     ellipsis: true
                 },
                 {
-                    title: 'site internet',
-                    dataIndex: 'fields.internet_http',
-                    key: 'fields.internet_http',
-                    scopedSlots: { customRender: 'website' },
-                    ellipsis: true
+                    title: 'actions',
+                    dataIndex: 'fields',
+                    key: 'fields.idassoc',
+                    scopedSlots: { customRender: 'actions' }
                 }
             ]
         }
@@ -58,7 +58,7 @@ export default {
     <div>
         <a-table
             :scroll="{ y: 'calc(100vh - 128px)' }"
-            tableLayout="fixed"
+            table-layout="fixed"
             :columns="columns"
             :data-source="data"
             size="small"
@@ -75,8 +75,23 @@ export default {
                     {{ tag }}
                 </a-tag>
             </span>
-            <span slot="website" slot-scope="website">
-                <a :href="website" target="_blank">{{ website }}</a>
+            <span slot="actions" slot-scope="actions">
+                <a
+                    :disabled="
+                        actions.internet_http === '' &&
+                            actions.internet_smtp === ''
+                    "
+                    :href="actions.internet_http || actions.internet_smtp"
+                    target="_blank"
+                    >site internet</a
+                >
+                <a-divider type="vertical" />
+                <a
+                    :href="`https://www.google.fr/search?q=${actions.idassoc}`"
+                    target="_blank"
+                    title="recherche Google"
+                    >recherche par RNA</a
+                >
             </span>
             <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
                 {{
