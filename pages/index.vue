@@ -9,7 +9,9 @@ export default {
         return {
             apiPaging: 0,
             data: [],
-            loading: false
+            totalAssociations: 0,
+            loading: false,
+            wordSearched: ``
         }
     },
     mounted() {
@@ -21,22 +23,37 @@ export default {
                 event.target.scrollHeight - event.target.clientHeight
             const currentScroll = event.target.scrollTop
             if (currentScroll === maxScroll) {
-                // load more data
                 this.fetchData()
             }
         })
     },
     methods: {
         async fetchData(nuxtContext) {
+            if (this.wordSearched) return
             const { $axios } = this
             this.loading = true
             try {
                 const response = await $axios.$get(
-                    `https://public.opendatasoft.com/api/records/1.0/search/?dataset=associations&rows=100&&start=${this.apiPaging}`
+                    `https://public.opendatasoft.com/api/records/1.0/search/?dataset=associations&rows=100&&start=${this.apiPaging}&q=${this.wordSearched}`
                 )
                 this.loading = false
                 this.apiPaging++
+                this.totalAssociations = response.nhits
                 return (this.data = this.data.concat(response.records))
+            } catch (error) {}
+        },
+
+        async search(data) {
+            const { $axios } = this
+            this.loading = true
+            try {
+                const response = await $axios.$get(
+                    `https://public.opendatasoft.com/api/records/1.0/search/?dataset=associations&rows=100&q=${data}`
+                )
+                this.loading = false
+                this.wordSearched = data
+                this.data = response.records
+                this.totalAssociations = response.nhits
             } catch (error) {}
         }
     }
@@ -48,7 +65,10 @@ export default {
             <openasso-header />
         </a-layout-header>
         <a-layout>
-            <openasso-sidebar />
+            <openasso-sidebar
+                :totalAssociations="totalAssociations"
+                @search="search"
+            />
             <a-layout style="padding: 0 24px 24px">
                 <a-layout-content
                     :style="{
@@ -67,10 +87,6 @@ export default {
 
 <style lang="scss" scoped>
 .ant-layout-content {
-    padding: var(--big-gutter);
-}
-.wrapper-content {
-    background: white;
     padding: var(--big-gutter);
 }
 </style>

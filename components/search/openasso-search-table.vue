@@ -12,7 +12,7 @@ export default {
                     title: 'nom',
                     dataIndex: 'fields',
                     key: 'fields',
-                    width: 400,
+                    ellipsis: true,
                     customRender: (fields) => {
                         return fields.titre
                             ? fields.titre
@@ -26,7 +26,7 @@ export default {
                     dataIndex: 'fields.theme_libelle',
                     key: 'fields.theme_libelle',
                     scopedSlots: { customRender: 'tags' },
-                    width: 500
+                    ellipsis: true
                 },
                 {
                     title: 'deptartements',
@@ -40,13 +40,14 @@ export default {
                     title: 'commune',
                     dataIndex: 'fields.commune',
                     key: 'fields.commune',
-                    width: 250
+                    ellipsis: true
                 },
                 {
                     title: 'site internet',
                     dataIndex: 'fields.internet_http',
                     key: 'fields.internet_http',
-                    scopedSlots: { customRender: 'website' }
+                    scopedSlots: { customRender: 'website' },
+                    ellipsis: true
                 }
             ]
         }
@@ -55,33 +56,36 @@ export default {
 </script>
 
 <template>
-    <a-table
-        :scroll="{ y: 'calc(100vh - 128px)' }"
-        :columns="columns"
-        :data-source="data"
-        size="small"
-        :pagination="false"
-        :loading="loading"
-    >
-        <!-- :rowKey="(data) => data.fields" -->
-        <span slot="tags" slot-scope="tags">
-            <a-tag
-                v-for="tag in tags ? tags.split(',') : tags"
-                :key="tag"
-                color="blue"
-            >
-                {{ tag }}
-            </a-tag>
-        </span>
-        <span slot="website" slot-scope="website">
-            <a :href="website" target="_blank">{{ website }}</a>
-        </span>
-        <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
-            {{
-                record.fields.objet
-                    ? record.fields.objet
-                    : 'Description non renseignée'
-            }}
-        </p>
-    </a-table>
+    <div>
+        <a-table
+            :scroll="{ y: 'calc(100vh - 128px)' }"
+            tableLayout="fixed"
+            :columns="columns"
+            :data-source="data"
+            size="small"
+            :pagination="false"
+            :loading="loading"
+        >
+            <!-- :rowKey="(data) => data.fields" -->
+            <span slot="tags" slot-scope="tags">
+                <a-tag
+                    v-for="tag in tags ? tags.split(',') : tags"
+                    :key="tag"
+                    color="blue"
+                >
+                    {{ tag }}
+                </a-tag>
+            </span>
+            <span slot="website" slot-scope="website">
+                <a :href="website" target="_blank">{{ website }}</a>
+            </span>
+            <p slot="expandedRowRender" slot-scope="record" style="margin: 0">
+                {{
+                    record.fields.objet
+                        ? record.fields.objet
+                        : 'Description non renseignée'
+                }}
+            </p>
+        </a-table>
+    </div>
 </template>
