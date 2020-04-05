@@ -16,7 +16,7 @@
     "dependencies": {
         "@nuxtjs/axios": "^5.3.6",
         "@nuxtjs/style-resources": "^1.0.0",
-        "ant-design-vue": "^1.1.10",
+        "ant-design-vue": "^1.5.1",
         "cross-env": "^5.2.0",
         "express": "^4.16.4",
         "nuxt": "^2.0.0"
