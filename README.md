@@ -24,8 +24,8 @@ $ yarn
 $ yarn dev
 
 # build for production with minification
-npm run build
+yarn run build
 
 # run tests
-npm test
+yarn test
 ```
