@@ -57,7 +57,7 @@ export default {
 <template>
     <div>
         <a-table
-            :rowClassName="
+            :row-class-name="
                 (record, index) =>
                     // antd does not provide a way to make striped rows in table
                     // it should be done like that if usin expandable row
@@ -70,7 +70,7 @@ export default {
             size="small"
             :pagination="false"
             :loading="loading"
-            :rowKey="(record, i) => `item-${i}`"
+            :row-key="(record, i) => `item-${i}`"
         >
             <span slot="tags" slot-scope="tags">
                 <a-tag

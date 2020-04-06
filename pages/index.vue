@@ -5,17 +5,26 @@ import OpenassoSidebar from '~/components/search/openasso-sidebar.vue'
 
 export default {
     components: { OpenassoHeader, OpenassoSearchTable, OpenassoSidebar },
+    async asyncData(nuxtContext) {
+        const { $axios } = nuxtContext
+        try {
+            const response = await $axios.$get(
+                `search/?dataset=associations&rows=100`
+            )
+            return { data: response.records, nhits: response.nhits }
+        } catch (error) {}
+    },
     data() {
         return {
             apiPaging: 0,
             data: [],
-            totalAssociations: 0,
+            nhits: 0,
             loading: false,
             wordSearched: ``
         }
     },
+
     mounted() {
-        this.fetchData()
         // try accessing by using refs
         const tableContent = document.querySelector('.ant-table-body')
         tableContent.addEventListener('scroll', (event) => {
@@ -38,8 +47,12 @@ export default {
                 )
                 this.loading = false
                 this.apiPaging++
-                this.totalAssociations = response.nhits
-                return (this.data = this.data.concat(response.records))
+                this.nhits = response.nhits
+
+                return [
+                    (this.data = this.data.concat(response.records)),
+                    (this.nhits = response.nhits)
+                ]
             } catch (error) {}
         },
 
@@ -53,7 +66,7 @@ export default {
                 this.loading = false
                 this.wordSearched = data
                 this.data = response.records
-                this.totalAssociations = response.nhits
+                this.nhits = response.nhits
             } catch (error) {}
         }
     }
@@ -65,10 +78,7 @@ export default {
             <openasso-header />
         </a-layout-header>
         <a-layout>
-            <openasso-sidebar
-                :totalAssociations="totalAssociations"
-                @search="search"
-            />
+            <openasso-sidebar :total-associations="nhits" @search="search" />
             <a-layout style="padding: 0 24px 24px">
                 <a-layout-content
                     :style="{
