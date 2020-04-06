@@ -43,7 +43,10 @@ module.exports = {
      */
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
-        '@nuxtjs/axios',
+        [
+            '@nuxtjs/axios',
+            { baseURL: 'https://public.opendatasoft.com/api/records/1.0/' }
+        ],
         '@nuxtjs/style-resources'
     ],
     /*

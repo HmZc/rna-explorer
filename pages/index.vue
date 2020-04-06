@@ -34,7 +34,7 @@ export default {
             this.loading = true
             try {
                 const response = await $axios.$get(
-                    `https://public.opendatasoft.com/api/records/1.0/search/?dataset=associations&rows=100&&start=${this.apiPaging}&q=${this.wordSearched}`
+                    `search/?dataset=associations&rows=100&&start=${this.apiPaging}&q=${this.wordSearched}`
                 )
                 this.loading = false
                 this.apiPaging++
@@ -48,7 +48,7 @@ export default {
             this.loading = true
             try {
                 const response = await $axios.$get(
-                    `https://public.opendatasoft.com/api/records/1.0/search/?dataset=associations&rows=100&q=${data}`
+                    `search/?dataset=associations&rows=100&q=${data}`
                 )
                 this.loading = false
                 this.wordSearched = data
