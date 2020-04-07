@@ -2,15 +2,16 @@
 import OpenassoHeader from '~/components/openasso-header.vue'
 import OpenassoSearchTable from '~/components/search/openasso-search-table.vue'
 import OpenassoSidebar from '~/components/search/openasso-sidebar.vue'
+import * as apiRoutesHelper from '~/helpers/api-routes'
 
 export default {
     components: { OpenassoHeader, OpenassoSearchTable, OpenassoSidebar },
     async asyncData(nuxtContext) {
         const { $axios } = nuxtContext
         try {
-            const response = await $axios.$get(
-                `search/?dataset=associations&rows=100`
-            )
+            const response = await $axios.$get(apiRoutesHelper.list(), {
+                params: { rows: `100` }
+            })
             return { data: response.records, nhits: response.nhits }
         } catch (error) {}
     },
@@ -23,7 +24,6 @@ export default {
             wordSearched: ``
         }
     },
-
     mounted() {
         // try accessing by using refs
         const tableContent = document.querySelector('.ant-table-body')
@@ -42,9 +42,13 @@ export default {
             const { $axios } = this
             this.loading = true
             try {
-                const response = await $axios.$get(
-                    `search/?dataset=associations&rows=100&&start=${this.apiPaging}&q=${this.wordSearched}`
-                )
+                const response = await $axios.$get(apiRoutesHelper.list(), {
+                    params: {
+                        rows: `100`,
+                        start: this.apiPaging,
+                        q: this.wordSearched
+                    }
+                })
                 this.loading = false
                 this.apiPaging++
                 this.nhits = response.nhits
@@ -60,9 +64,12 @@ export default {
             const { $axios } = this
             this.loading = true
             try {
-                const response = await $axios.$get(
-                    `search/?dataset=associations&rows=100&q=${data}`
-                )
+                const response = await $axios.$get(apiRoutesHelper.list(), {
+                    params: {
+                        rows: `100`,
+                        q: data
+                    }
+                })
                 this.loading = false
                 this.wordSearched = data
                 this.data = response.records
