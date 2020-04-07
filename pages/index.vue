@@ -25,7 +25,7 @@ export default {
     },
     data() {
         return {
-            apiPaging: 0,
+            apiPaging: 1,
             data: [],
             nhits: 0,
             loading: false,
