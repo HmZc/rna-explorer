@@ -20,7 +20,8 @@
         "cross-env": "^5.2.0",
         "express": "^4.16.4",
         "lodash.debounce": "^4.0.8",
-        "nuxt": "^2.0.0"
+        "nuxt": "^2.0.0",
+        "qs": "^6.9.3"
     },
     "devDependencies": {
         "@nuxtjs/eslint-config": "^2.0.0",

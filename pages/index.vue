@@ -1,4 +1,5 @@
 <script>
+import Qs from 'qs'
 import OpenassoHeader from '~/components/openasso-header.vue'
 import OpenassoSearchTable from '~/components/search/openasso-search-table.vue'
 import OpenassoSidebar from '~/components/search/openasso-sidebar.vue'
@@ -10,9 +11,16 @@ export default {
         const { $axios } = nuxtContext
         try {
             const response = await $axios.$get(apiRoutesHelper.list(), {
-                params: { rows: `100` }
+                params: { facet: [`nom_reg`, `commune`, `nom_dep`], rows: 100 },
+                paramsSerializer: (params) => {
+                    return Qs.stringify(params, { arrayFormat: `repeat` })
+                }
             })
-            return { data: response.records, nhits: response.nhits }
+            return {
+                data: response.records,
+                nhits: response.nhits,
+                regions: response
+            }
         } catch (error) {}
     },
     data() {
@@ -21,7 +29,8 @@ export default {
             data: [],
             nhits: 0,
             loading: false,
-            wordSearched: ``
+            search: ``,
+            territories: {}
         }
     },
     mounted() {
@@ -38,7 +47,7 @@ export default {
     },
     methods: {
         async fetchData(nuxtContext) {
-            if (this.wordSearched) return
+            if (this.search) return
             const { $axios } = this
             this.loading = true
             try {
@@ -46,7 +55,7 @@ export default {
                     params: {
                         rows: `100`,
                         start: this.apiPaging,
-                        q: this.wordSearched
+                        q: this.search
                     }
                 })
                 this.loading = false
@@ -60,18 +69,18 @@ export default {
             } catch (error) {}
         },
 
-        async search(data) {
+        async searchTerm(term) {
             const { $axios } = this
             this.loading = true
             try {
                 const response = await $axios.$get(apiRoutesHelper.list(), {
                     params: {
                         rows: `100`,
-                        q: data
+                        q: term
                     }
                 })
                 this.loading = false
-                this.wordSearched = data
+                this.search = term
                 this.data = response.records
                 this.nhits = response.nhits
             } catch (error) {}
@@ -85,7 +94,11 @@ export default {
             <openasso-header />
         </a-layout-header>
         <a-layout>
-            <openasso-sidebar :total-associations="nhits" @search="search" />
+            <openasso-sidebar
+                :total-associations="nhits"
+                :territories="territories"
+                @search="searchTerm"
+            />
             <a-layout style="padding: 0 24px 24px">
                 <a-layout-content
                     :style="{

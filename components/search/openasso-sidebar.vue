@@ -4,7 +4,8 @@ import debounce from 'lodash.debounce'
 export default {
     name: `openasso-sidebar`,
     props: {
-        totalAssociations: { type: Number, required: true }
+        totalAssociations: { type: Number, required: true },
+        territories: { type: Object, required: true }
     },
     data() {
         return {
