@@ -1,4 +1,6 @@
 <script>
+import debounce from 'lodash.debounce'
+
 export default {
     name: `openasso-sidebar`,
     props: {
@@ -9,9 +11,15 @@ export default {
             search: ''
         }
     },
+    created() {
+        this.updatedSearch = debounce(this.updatedSearch, 300)
+    },
     methods: {
         formatedNhits() {
             return new Intl.NumberFormat('fr-FR').format(this.totalAssociations)
+        },
+        updatedSearch() {
+            return this.$emit(`search`, this.search)
         }
     }
 }
@@ -29,7 +37,7 @@ export default {
             <a-input-search
                 v-model="search"
                 placeholder="recherche par mot-clé"
-                @change="$emit(`search`, search)"
+                @change="updatedSearch()"
             />
         </div>
     </a-layout-sider>
