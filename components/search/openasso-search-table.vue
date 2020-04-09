@@ -60,7 +60,7 @@ export default {
             :row-class-name="
                 (record, index) =>
                     // antd does not provide a way to make striped rows in table
-                    // it should be done like that if usin expandable row
+                    // it should be done like that if expandable row is used
                     index % 2 === 0 ? 'ant-table-tbody--row-grey' : ''
             "
             :scroll="{ y: 'calc(100vh - 128px)' }"

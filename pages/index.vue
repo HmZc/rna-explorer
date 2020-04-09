@@ -1,9 +1,10 @@
 <script>
 import Qs from 'qs'
+import * as apiRoutesHelper from '~/helpers/api-routes'
+
 import OpenassoHeader from '~/components/openasso-header.vue'
 import OpenassoSearchTable from '~/components/search/openasso-search-table.vue'
 import OpenassoSidebar from '~/components/search/openasso-sidebar.vue'
-import * as apiRoutesHelper from '~/helpers/api-routes'
 
 export default {
     components: { OpenassoHeader, OpenassoSearchTable, OpenassoSidebar },
@@ -19,7 +20,7 @@ export default {
             return {
                 data: response.records,
                 nhits: response.nhits,
-                regions: response
+                territories: response
             }
         } catch (error) {}
     },
@@ -30,7 +31,8 @@ export default {
             nhits: 0,
             loading: false,
             search: ``,
-            territories: {}
+            territories: {},
+            selectedTerritory: ``
         }
     },
     mounted() {
@@ -47,16 +49,18 @@ export default {
     },
     methods: {
         async fetchData(nuxtContext) {
-            if (this.search) return
+            if (this.nhits <= 100) return
             const { $axios } = this
             this.loading = true
+            const params = {
+                rows: `100`,
+                start: this.apiPaging,
+                q: this.search,
+                'refine.nom_reg': this.selectedTerritory
+            }
             try {
                 const response = await $axios.$get(apiRoutesHelper.list(), {
-                    params: {
-                        rows: `100`,
-                        start: this.apiPaging,
-                        q: this.search
-                    }
+                    params
                 })
                 this.loading = false
                 this.apiPaging++
@@ -72,15 +76,18 @@ export default {
         async searchTerm(term) {
             const { $axios } = this
             this.loading = true
+            const params = {
+                rows: `100`,
+                q: term.searchBoxValue,
+                'refine.nom_reg': term.selectBoxValue
+            }
             try {
                 const response = await $axios.$get(apiRoutesHelper.list(), {
-                    params: {
-                        rows: `100`,
-                        q: term
-                    }
+                    params
                 })
+                this.selectedTerritory = term.selectBoxValue
                 this.loading = false
-                this.search = term
+                this.search = term.searchBoxValue
                 this.data = response.records
                 this.nhits = response.nhits
             } catch (error) {}
@@ -98,6 +105,7 @@ export default {
                 :total-associations="nhits"
                 :territories="territories"
                 @search="searchTerm"
+                @selectedTerritory="searchTerm"
             />
             <a-layout style="padding: 0 24px 24px">
                 <a-layout-content
