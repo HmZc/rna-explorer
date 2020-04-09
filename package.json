@@ -21,7 +21,8 @@
         "express": "^4.16.4",
         "lodash.debounce": "^4.0.8",
         "nuxt": "^2.0.0",
-        "qs": "^6.9.3"
+        "qs": "^6.9.3",
+        "vue-json-csv": "^1.2.11"
     },
     "devDependencies": {
         "@nuxtjs/eslint-config": "^2.0.0",

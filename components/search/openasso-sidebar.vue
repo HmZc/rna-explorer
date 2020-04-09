@@ -4,6 +4,7 @@ import debounce from 'lodash.debounce'
 export default {
     name: `openasso-sidebar`,
     props: {
+        data: { type: Array, required: true },
         totalAssociations: { type: Number, required: true },
         territories: { type: Object, required: true }
     },
@@ -85,6 +86,17 @@ export default {
                     </span>
                 </a-select-option>
             </a-select>
+
+            <download-csv :data="data.map((item) => item.fields)">
+                <a-button
+                    class="sidebar-inner__download"
+                    type="primary"
+                    ghost
+                    icon="download"
+                >
+                    Exporter le resultat en CSV
+                </a-button>
+            </download-csv>
         </div>
     </a-layout-sider>
 </template>
@@ -107,6 +119,10 @@ export default {
     width: 100%;
     margin: var(--gutter) 0;
     font-size: 0.8rem;
+}
+.sidebar-inner__download {
+    position: absolute;
+    bottom: var(--big-gutter);
 }
 .sidebar-inner__select-item-count {
     float: right;

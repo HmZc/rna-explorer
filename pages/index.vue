@@ -102,6 +102,7 @@ export default {
         </a-layout-header>
         <a-layout>
             <openasso-sidebar
+                :data="data"
                 :total-associations="nhits"
                 :territories="territories"
                 @search="searchTerm"

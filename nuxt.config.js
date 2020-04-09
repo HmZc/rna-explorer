@@ -32,7 +32,8 @@ module.exports = {
      */
     plugins: [
         { src: `@/plugins/antd-ui`, ssr: true },
-        { src: '~plugins/filters', ssr: true }
+        { src: '~plugins/filters', ssr: true },
+        { src: '~plugins/vue-json-csv', ssr: true }
     ],
     /*
      ** Nuxt.js dev-modules
