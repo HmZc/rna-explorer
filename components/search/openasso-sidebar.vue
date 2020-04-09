@@ -37,7 +37,7 @@ export default {
 </script>
 
 <template>
-    <a-layout-sider class="sidebar" width="250" theme="light">
+    <div class="sidebar">
         <div class="sidebar-header">
             <div class="sidebar-header__title">
                 Nombre total d'associations :
@@ -87,18 +87,16 @@ export default {
                 </a-select-option>
             </a-select>
 
-            <download-csv :data="data.map((item) => item.fields)">
-                <a-button
-                    class="sidebar-inner__download"
-                    type="primary"
-                    ghost
-                    icon="download"
-                >
+            <download-csv
+                class="sidebar-inner__download"
+                :data="data.map((item) => item.fields)"
+            >
+                <a-button block type="primary" ghost icon="download">
                     Exporter le resultat en CSV
                 </a-button>
             </download-csv>
         </div>
-    </a-layout-sider>
+    </div>
 </template>
 
 <style lang="scss" scoped>
@@ -118,10 +116,8 @@ export default {
 .sidebar-inner__select {
     width: 100%;
     margin: var(--gutter) 0;
-    font-size: 0.8rem;
 }
 .sidebar-inner__download {
-    position: absolute;
     bottom: var(--big-gutter);
 }
 .sidebar-inner__select-item-count {

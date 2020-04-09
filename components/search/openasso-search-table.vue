@@ -31,7 +31,7 @@ export default {
                     width: 500
                 },
                 {
-                    title: 'deptartement',
+                    title: 'département',
                     dataIndex: 'fields.dept',
                     key: 'fields.dept',
                     width: 120

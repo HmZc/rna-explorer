@@ -96,11 +96,17 @@ export default {
 }
 </script>
 <template>
-    <a-layout>
-        <a-layout-header class="header">
-            <openasso-header />
-        </a-layout-header>
-        <a-layout>
+    <!-- 
+        antdv provides a layout system based on flex. 
+        It makes layout shifting when we refresh the app, that is why we use grid
+    -->
+    <div class="container">
+        <header>
+            <a-layout-header class="header">
+                <openasso-header />
+            </a-layout-header>
+        </header>
+        <nav>
             <openasso-sidebar
                 :data="data"
                 :total-associations="nhits"
@@ -108,24 +114,33 @@ export default {
                 @search="searchTerm"
                 @selectedTerritory="searchTerm"
             />
-            <a-layout style="padding: 0 24px 24px">
-                <a-layout-content
-                    :style="{
-                        background: '#fff',
-                        padding: '0',
-                        margin: 0,
-                        minHeight: '280px'
-                    }"
-                >
-                    <openasso-search-table :data="data" :loading="loading" />
-                </a-layout-content>
-            </a-layout>
-        </a-layout>
-    </a-layout>
+        </nav>
+        <main>
+            <openasso-search-table :data="data" :loading="loading" />
+        </main>
+    </div>
 </template>
 
 <style lang="scss" scoped>
-.ant-layout-content {
-    padding: var(--big-gutter);
+.container {
+    display: grid;
+    grid-template-areas:
+        'header header header'
+        'nav content content';
+    grid-template-rows: 64px auto;
+    grid-template-columns: 270px auto auto;
+    grid-gap: 0;
+    height: 100vh;
+}
+header {
+    grid-area: header;
+}
+
+nav {
+    grid-area: nav;
+}
+
+main {
+    grid-area: content;
 }
 </style>
