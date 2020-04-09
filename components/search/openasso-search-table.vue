@@ -20,6 +20,8 @@ export default {
                             : fields.nouveau_titre
                             ? fields.nouveau_titre
                             : fields.ancien_titre
+                            ? fields.ancien_titre
+                            : 'Nom introuvable'
                     }
                 },
                 {

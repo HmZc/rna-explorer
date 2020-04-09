@@ -55,9 +55,10 @@ export default {
             const params = {
                 rows: `100`,
                 start: this.apiPaging,
-                q: this.search,
-                'refine.nom_reg': this.selectedTerritory
+                q: this.search
             }
+            if (this.selectedTerritory)
+                params['refine.nom_reg'] = this.selectedTerritory
             try {
                 const response = await $axios.$get(apiRoutesHelper.list(), {
                     params
@@ -76,11 +77,13 @@ export default {
         async searchTerm(term) {
             const { $axios } = this
             this.loading = true
+            this.apiPaging = 1
             const params = {
                 rows: `100`,
-                q: term.searchBoxValue,
-                'refine.nom_reg': term.selectBoxValue
+                q: term.searchBoxValue
             }
+            if (term.selectBoxValue)
+                params['refine.nom_reg'] = term.selectBoxValue
             try {
                 const response = await $axios.$get(apiRoutesHelper.list(), {
                     params
