@@ -50,7 +50,7 @@
                         dataIndex: 'fields',
                         key: 'fields.idassoc',
                         fixed: 'right',
-                        width: 300,
+                        width: 230,
                         scopedSlots: { customRender: 'actions' }
                     }
                 ]
@@ -77,10 +77,10 @@
             a-tag(v-for="tag in tags ? tags.split(',') : tags" :key="tag" color="blue") {{tag}}
         span(slot="actions" slot-scope="actions")
             a(
-                :disabled=" actions.internet_http === '' && actions.internet_smtp === ''" 
+                :disabled="actions.internet_http === '' && actions.internet_smtp === ''" 
                 :href="actions.internet_http || actions.internet_smtp" 
                 target="_blank"
-            )
+            ) site internet
             a-divider( type="vertical" )
             a(
                 :href="`https://www.google.fr/search?q=${actions.idassoc}`"
