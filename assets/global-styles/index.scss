@@ -6,6 +6,8 @@
 
     --gutter: 1rem;
     --big-gutter: 2rem;
+
+    --header-height: 64px;
 }
 
 /* Ant Design Vue table style */
@@ -17,4 +19,8 @@
 }
 .ant-table-expanded-row {
     color: #949494;
+}
+.ant-table td,
+.ant-table-thead tr {
+    white-space: nowrap;
 }

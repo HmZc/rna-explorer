@@ -42,12 +42,15 @@ export default {
                     title: 'commune',
                     dataIndex: 'fields.commune',
                     key: 'fields.commune',
-                    ellipsis: true
+                    ellipsis: true,
+                    width: 160
                 },
                 {
                     title: 'actions',
                     dataIndex: 'fields',
                     key: 'fields.idassoc',
+                    fixed: 'right',
+                    width: 300,
                     scopedSlots: { customRender: 'actions' }
                 }
             ]
@@ -65,7 +68,7 @@ export default {
                     // it should be done like that if expandable row is used
                     index % 2 === 0 ? 'ant-table-tbody--row-grey' : ''
             "
-            :scroll="{ y: 'calc(100vh - 128px)' }"
+            :scroll="{ y: 'calc(100vh - var(--header-height) - 40px)', x: 900 }"
             table-layout="fixed"
             :columns="columns"
             :data-source="data"

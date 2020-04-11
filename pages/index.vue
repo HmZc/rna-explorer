@@ -4,15 +4,21 @@ import * as apiRoutesHelper from '~/helpers/api-routes'
 
 import OpenassoHeader from '~/components/openasso-header.vue'
 import OpenassoSearchTable from '~/components/search/openasso-search-table.vue'
+import OpenassoSearchMap from '~/components/search/openasso-search-map.vue'
 import OpenassoSidebar from '~/components/search/openasso-sidebar.vue'
 
 export default {
-    components: { OpenassoHeader, OpenassoSearchTable, OpenassoSidebar },
+    components: {
+        OpenassoHeader,
+        OpenassoSearchTable,
+        OpenassoSearchMap,
+        OpenassoSidebar
+    },
     async asyncData(nuxtContext) {
         const { $axios } = nuxtContext
         try {
             const response = await $axios.$get(apiRoutesHelper.list(), {
-                params: { facet: [`nom_reg`, `commune`, `nom_dep`], rows: 100 },
+                params: { facet: [`nom_reg`, `commune`, `nom_dep`], rows: 50 },
                 paramsSerializer: (params) => {
                     return Qs.stringify(params, { arrayFormat: `repeat` })
                 }
@@ -49,11 +55,11 @@ export default {
     },
     methods: {
         async fetchData(nuxtContext) {
-            if (this.nhits <= 100) return
+            if (this.nhits <= 50) return
             const { $axios } = this
             this.loading = true
             const params = {
-                rows: `100`,
+                rows: `50`,
                 start: this.apiPaging,
                 q: this.search
             }
@@ -79,7 +85,7 @@ export default {
             this.loading = true
             this.apiPaging = 1
             const params = {
-                rows: `100`,
+                rows: `50`,
                 q: term.searchBoxValue
             }
             if (term.selectBoxValue)
@@ -121,6 +127,7 @@ export default {
         <main>
             <openasso-search-table :data="data" :loading="loading" />
         </main>
+        <aside><openasso-search-map :data="data" /></aside>
     </div>
 </template>
 
@@ -129,9 +136,9 @@ export default {
     display: grid;
     grid-template-areas:
         'header header header'
-        'nav content content';
+        'nav content aside';
     grid-template-rows: 64px auto;
-    grid-template-columns: 270px auto auto;
+    grid-template-columns: 270px 1000px auto; // ~~~~~~~~~~~~
     grid-gap: 0;
     height: 100vh;
 }
@@ -142,7 +149,9 @@ header {
 nav {
     grid-area: nav;
 }
-
+aside {
+    grid-area: aside;
+}
 main {
     grid-area: content;
 }

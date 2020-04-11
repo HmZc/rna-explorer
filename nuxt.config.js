@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
     mode: 'universal',
     /*
@@ -33,7 +35,8 @@ module.exports = {
     plugins: [
         { src: `@/plugins/antd-ui`, ssr: true },
         { src: '~plugins/filters', ssr: true },
-        { src: '~plugins/vue-json-csv', ssr: true }
+        { src: '~plugins/vue-json-csv', ssr: true },
+        { src: '~plugins/vue-google-charts', ssr: true }
     ],
     /*
      ** Nuxt.js dev-modules
@@ -66,5 +69,8 @@ module.exports = {
          ** You can extend webpack config here
          */
         extend(config, ctx) {}
+    },
+    env: {
+        GMAP_API_KEY: process.env.GMAP_API_KEY
     }
 }
