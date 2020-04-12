@@ -15,11 +15,9 @@ https://assoc-finder.herokuapp.com/
 -   Heroku
 
 
-## variables d'environnement
+## Variables d'environnement
 
 A la racine du projet `touch .env`, puis definir la variable suivante: `GMAP_API_KEY`
-
-> Google does not like string addresses, for now api does not return coordinates (lng,lat), that is why the load of the map is really slow. I temporarily limited the nb records.
 
 ## Commandes de build
 
@@ -36,3 +34,7 @@ yarn run build
 # run tests
 yarn test
 ```
+
+## remarques:
+  Pour des raisons de contraintes d'apis, le mapping des markers sur la carte se fait pour l'instant avec des adresses ce qui réduit très très fortement l'affichage de la carte.
+  
