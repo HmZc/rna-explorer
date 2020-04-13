@@ -18,12 +18,17 @@
             }
         },
         computed: {
-            // GOOGLE : "String addresses load more slowly,
-            // especially when you have more than 10 addresses."
             chartData() {
-                return [['city']].concat(
-                    this.data.map((e) => [e.fields.siege_social])
-                )
+                // API : "geometry" object containing lat/lng is not available every time.
+                // String addresses load more slowly, especially when you have more than 10 addresses
+                if (this.data[0].geometry !== undefined)
+                    return [['Lat', 'lng']].concat(
+                        this.data.map((e) => e.geometry.coordinates.reverse())
+                    )
+                else
+                    return [['adresse']].concat(
+                        this.data.map((e) => [e.fields.siege_social])
+                    )
             }
         }
     }
