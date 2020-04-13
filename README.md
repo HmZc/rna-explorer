@@ -34,7 +34,4 @@ yarn run build
 # run tests
 yarn test
 ```
-
-## Remarques:
-  Pour des raisons de contraintes d'apis, le mapping des markers sur la carte se fait pour l'instant avec des adresses ce qui réduit très très fortement l'affichage de la carte.
   
