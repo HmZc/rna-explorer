@@ -22,8 +22,11 @@
                 // API : "geometry" object containing lat/lng is not available every time.
                 // String addresses load more slowly, especially when you have more than 10 addresses
                 if (this.data[0].geometry !== undefined)
-                    return [['Lat', 'lng']].concat(
-                        this.data.map((e) => e.geometry.coordinates.reverse())
+                    return [['lat', 'lng']].concat(
+                        this.data.map((e) => [
+                            e.geometry.coordinates[1],
+                            e.geometry.coordinates[0]
+                        ])
                     )
                 else
                     return [['adresse']].concat(
