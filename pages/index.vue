@@ -20,7 +20,7 @@
                 const response = await $axios.$get(apiRoutesHelper.list(), {
                     params: {
                         facet: [`nom_reg`, `commune`, `nom_dep`],
-                        rows: 50
+                        rows: -1
                     },
                     paramsSerializer: (params) => {
                         return Qs.stringify(params, { arrayFormat: `repeat` })
@@ -43,18 +43,6 @@
                 territories: {},
                 selectedTerritory: ``
             }
-        },
-        mounted() {
-            // try accessing by using refs
-            const tableContent = document.querySelector('.ant-table-body')
-            tableContent.addEventListener('scroll', (event) => {
-                const maxScroll =
-                    event.target.scrollHeight - event.target.clientHeight
-                const currentScroll = event.target.scrollTop
-                if (currentScroll === maxScroll) {
-                    this.fetchData()
-                }
-            })
         },
         methods: {
             async fetchData(nuxtContext) {
@@ -88,7 +76,7 @@
                 this.loading = true
                 this.apiPaging = 1
                 const params = {
-                    rows: `50`,
+                    rows: -1,
                     q: term.searchBoxValue
                 }
                 if (term.selectBoxValue)

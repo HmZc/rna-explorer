@@ -69,7 +69,7 @@
             :columns="columns"
             :data-source="data"
             size="small"
-            :pagination="false"
+            :pagination="{pageSize: 20 ,simple: true}"
             :loading="loading"
             :row-key="(record, i) => `item-${i}`"
     )
