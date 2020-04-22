@@ -45,7 +45,10 @@
 
 <template lang="pug">
     GmapMap.map(:zoom="6" :center="{ lat: 46, lng: 2 }")
-        GmapCluster
+        GmapCluster(
+            :maxZoom="8"
+            :zoomOnClick="true"
+        )
             GmapMarker(
                 :key="index"
                 v-for="(m, index) in chartData"
