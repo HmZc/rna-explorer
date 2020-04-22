@@ -54,7 +54,7 @@
                 const maxScroll =
                     event.target.scrollHeight - event.target.clientHeight
                 const currentScroll = event.target.scrollTop
-                if (currentScroll === maxScroll) {
+                if (currentScroll >= maxScroll) {
                     this.fetchData()
                 }
             })
@@ -64,10 +64,10 @@
                 return this.markers.push(e)
             },
             async fetchData(nuxtContext) {
-                if (this.nhits <= 50) return
+                if (this.nhits <= this.apiPaging) return
                 const { $axios } = this
                 this.loading = true
-                this.apiPaging++
+                this.apiPaging += 50
                 const params = {
                     rows: 50,
                     start: this.apiPaging,
@@ -92,7 +92,7 @@
             async searchTerm(term) {
                 const { $axios } = this
                 this.loading = true
-                this.apiPaging = 1
+                this.apiPaging = 0
                 const params = {
                     rows: 50,
                     q: term.searchBoxValue
