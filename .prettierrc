@@ -3,6 +3,6 @@
     "arrowParens": "always",
     "tabWidth": 4,
     "singleQuote": true,
-    "vueIndentScriptAndStyle": true,
-    "printWidth": 80
+    "printWidth": 80,
+    "vueIndentScriptAndStyle": true
 }

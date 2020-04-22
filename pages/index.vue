@@ -20,14 +20,15 @@
                 const response = await $axios.$get(apiRoutesHelper.list(), {
                     params: {
                         facet: [`nom_reg`, `commune`, `nom_dep`],
-                        rows: -1
+                        rows: 50
                     },
                     paramsSerializer: (params) => {
                         return Qs.stringify(params, { arrayFormat: `repeat` })
                     }
                 })
                 return {
-                    data: response.records,
+                    data: response,
+                    records: response.records,
                     nhits: response.nhits,
                     territories: response
                 }
@@ -35,22 +36,40 @@
         },
         data() {
             return {
-                apiPaging: 1,
+                apiPaging: 0,
                 data: [],
+                records: [],
                 nhits: 0,
                 loading: false,
                 search: ``,
                 territories: {},
-                selectedTerritory: ``
+                selectedTerritory: ``,
+                markers: []
             }
         },
+        mounted() {
+            // try accessing by using refs
+            const tableContent = document.querySelector('.ant-table-body')
+            tableContent.addEventListener('scroll', (event) => {
+                const maxScroll =
+                    event.target.scrollHeight - event.target.clientHeight
+                const currentScroll = event.target.scrollTop
+                if (currentScroll === maxScroll) {
+                    this.fetchData()
+                }
+            })
+        },
         methods: {
+            addRowsToMap(e) {
+                return this.markers.push(e)
+            },
             async fetchData(nuxtContext) {
                 if (this.nhits <= 50) return
                 const { $axios } = this
                 this.loading = true
+                this.apiPaging++
                 const params = {
-                    rows: `50`,
+                    rows: 50,
                     start: this.apiPaging,
                     q: this.search
                 }
@@ -61,11 +80,10 @@
                         params
                     })
                     this.loading = false
-                    this.apiPaging++
                     this.nhits = response.nhits
 
                     return [
-                        (this.data = this.data.concat(response.records)),
+                        (this.records = this.records.concat(response.records)),
                         (this.nhits = response.nhits)
                     ]
                 } catch (error) {}
@@ -76,7 +94,7 @@
                 this.loading = true
                 this.apiPaging = 1
                 const params = {
-                    rows: -1,
+                    rows: 50,
                     q: term.searchBoxValue
                 }
                 if (term.selectBoxValue)
@@ -88,7 +106,7 @@
                     this.selectedTerritory = term.selectBoxValue
                     this.loading = false
                     this.search = term.searchBoxValue
-                    this.data = response.records
+                    this.records = response.records
                     this.nhits = response.nhits
                 } catch (error) {}
             }
@@ -105,16 +123,16 @@
                     openasso-header
             nav
                 openasso-sidebar(
-                    :data="data"
+                    :data="records"
                     :total-associations="nhits"
                     :territories="territories"
                     @search="searchTerm"
                     @selectedTerritory="searchTerm"
                 )
             main
-                openasso-search-table(:data="data" :loading="loading")
+                openasso-search-table(:data="records" :total-associations="nhits" @addRowsToMap="addRowsToMap" :loading="loading")
             aside
-                openasso-search-map(:data="data")
+                openasso-search-map(:data="data" :markers="markers")
 </template>
 
 <style lang="scss" scoped>

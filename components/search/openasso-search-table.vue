@@ -3,6 +3,7 @@
         name: `openasso-search-table`,
         props: {
             data: { type: Array, required: true },
+            totalAssociations: { type: Number, required: true },
             loading: { type: Boolean, required: true }
         },
         data() {
@@ -14,15 +15,7 @@
                         key: 'fields',
                         ellipsis: true,
                         width: 400,
-                        customRender: (fields) => {
-                            return fields.titre
-                                ? fields.titre
-                                : fields.nouveau_titre
-                                ? fields.nouveau_titre
-                                : fields.ancien_titre
-                                ? fields.ancien_titre
-                                : 'Nom introuvable'
-                        }
+                        scopedSlots: { customRender: 'nom' }
                     },
                     {
                         title: 'tags',
@@ -47,10 +40,9 @@
                     },
                     {
                         title: 'actions',
-                        dataIndex: 'fields',
-                        key: 'fields.idassoc',
+
                         fixed: 'right',
-                        width: 230,
+                        width: 115,
                         scopedSlots: { customRender: 'actions' }
                     }
                 ]
@@ -69,23 +61,22 @@
             :columns="columns"
             :data-source="data"
             size="small"
-            :pagination="{pageSize: 20 ,simple: true}"
+            :pagination="false"
             :loading="loading"
             :row-key="(record, i) => `item-${i}`"
     )
+        span(slot="nom" slot-scope="nom")   
+            span(v-html="nom.titre ? nom.titre: nom.nouveau_titre ? nom.nouveau_titre : nom.ancien_titre ? nom.ancien_titre:`<a href='https://www.google.fr/search?q=RNA ${nom.idassoc}' target='_blank' title='recherche externe avec RNA &#8599;'>NOM INTROUVABLE</a>` ")
+
         span(slot="tags" slot-scope="tags")
             a-tag(v-for="tag in tags ? tags.split(',') : tags" :key="tag" color="blue") {{tag}}
         span(slot="actions" slot-scope="actions")
             a(
-                :disabled="actions.internet_http === '' && actions.internet_smtp === ''" 
-                :href="actions.internet_http || actions.internet_smtp" 
+                :disabled="actions.fields.internet_http === '' && actions.fields.internet_smtp === ''" 
+                :href="actions.fields.internet_http || actions.fields.internet_smtp" 
                 target="_blank"
             ) site internet
             a-divider( type="vertical" )
-            a(
-                :href="`https://www.google.fr/search?q=${actions.idassoc}`"
-                target="_blank"
-                title="recherche Google"
-            ) recherche par RNA
+            a-icon(@click="$emit('addRowsToMap', actions)" type="pushpin" theme="twoTone" style="fontSize:1.2em" title="afficher sur la carte")
         p(slot="expandedRowRender" slot-scope="record" style="margin: 0") {{ record.fields.objet ? record.fields.objet : 'Description non renseignée'}}
 </template>

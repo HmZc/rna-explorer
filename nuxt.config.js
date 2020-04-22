@@ -36,7 +36,8 @@ module.exports = {
         { src: `@/plugins/antd-ui`, ssr: true },
         { src: '~plugins/filters', ssr: true },
         { src: '~plugins/vue-json-csv', ssr: true },
-        { src: '~plugins/vue-google-charts', ssr: true }
+        { src: '~plugins/vue-google-charts', ssr: true },
+        { src: '@/plugins/vue2-google-maps', ssr: true }
     ],
     /*
      ** Nuxt.js dev-modules
@@ -65,10 +66,7 @@ module.exports = {
      ** Build configuration
      */
     build: {
-        /*
-         ** You can extend webpack config here
-         */
-        extend(config, ctx) {}
+        transpile: ['vue2-google-maps']
     },
     env: {
         GMAP_API_KEY: process.env.GMAP_API_KEY
