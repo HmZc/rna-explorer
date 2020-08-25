@@ -60,8 +60,8 @@
             })
         },
         methods: {
-            addRowsToMap(e) {
-                return this.markers.push(e)
+            addMarkerToMap(e) {
+                if (!this.markers.includes(e)) return this.markers.push(e)
             },
             async fetchData(nuxtContext) {
                 if (this.nhits <= this.apiPaging) return
@@ -130,7 +130,7 @@
                     @selectedTerritory="searchTerm"
                 )
             main
-                openasso-search-table(:data="records" :total-associations="nhits" @addRowsToMap="addRowsToMap" :loading="loading")
+                openasso-search-table(:data="records" :total-associations="nhits" @addMarkerToMap="addMarkerToMap" :loading="loading")
             aside
                 openasso-search-map(:data="data" :markers="markers")
 </template>
