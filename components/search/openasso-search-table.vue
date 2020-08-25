@@ -8,6 +8,7 @@
         },
         data() {
             return {
+                tagRegex: /(?![^(]*\)),/g,
                 columns: [
                     {
                         title: 'nom',
@@ -67,9 +68,8 @@
     )
         span(slot="nom" slot-scope="nom")   
             span(v-html="nom.titre ? nom.titre: nom.nouveau_titre ? nom.nouveau_titre : nom.ancien_titre ? nom.ancien_titre:`<a href='https://www.google.fr/search?q=RNA ${nom.idassoc}' target='_blank' title='recherche externe avec RNA &#8599;'>NOM INTROUVABLE</a>` ")
-
         span(slot="tags" slot-scope="tags")
-            a-tag(v-for="tag in tags ? tags.split(',') : tags" :key="tag" color="blue") {{tag}}
+            a-tag(v-for="tag in tags ? tags.split(tagRegex) : tags" :key="tag" color="blue") {{tag}}
         span(slot="actions" slot-scope="actions")
             a(
                 :disabled="actions.fields.internet_http === '' && actions.fields.internet_smtp === ''" 
