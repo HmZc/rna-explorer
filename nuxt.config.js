@@ -70,5 +70,7 @@ module.exports = {
     },
     env: {
         GMAP_API_KEY: process.env.GMAP_API_KEY
-    }
+    },
+    // nuxt collects anonymous telemetry data about general usage by asking everytime the permission...
+    telemetry: false
 }
