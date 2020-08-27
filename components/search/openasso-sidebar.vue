@@ -11,6 +11,7 @@
         data() {
             return {
                 search: '',
+                enableDownload: true,
                 // ANTDV - select box (placeholder): should be init with the following value: undefined
                 // if you use v-model
                 // Otherwise placeholder will not show up
@@ -28,6 +29,9 @@
                 )
             },
             updatedSearch() {
+                this.search.length
+                    ? (this.enableDownload = false)
+                    : (this.enableDownload = true)
                 return this.$emit(`search`, {
                     searchBoxValue: this.search,
                     selectBoxValue: this.selectedTerritory,
@@ -70,7 +74,7 @@
                     )
                     span.sidebar-inner__select-item-path {{ territory.path }}
             download-csv.sidebar-inner__download(:data="data.map((item) => item.fields)")
-                a-button(block type="primary" ghost icon="download") Exporter le resultat en CSV
+                a-button(block type="primary" :disabled="enableDownload" large icon="download" title="Limité aux 50 premiers échantillons") Exporter le resultat (csv)
 </template>
 
 <style lang="scss" scoped>
