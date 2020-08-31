@@ -6,12 +6,13 @@
             GmapCluster
         },
         props: {
-            data: { type: Object, required: true },
-            markers: { type: Array, required: true }
+            marker: { type: Object, required: true, default: () => ({}) }
         },
         data() {
             return {
-                window_open: false,
+                markerTooltip: true,
+                mapCoordinate: { lat: 46, lng: 2 },
+                mapZoom: 5,
                 chartSettings: {
                     mapsApiKey: process.env.GMAP_API_KEY,
                     packages: ['map']
@@ -24,48 +25,42 @@
             }
         },
         computed: {
-            chartData() {
-                return this.markers.map((marker) => {
+            markerFocus() {
+                if (Object.keys(this.marker).length) {
+                    this.updateZoom()
                     return {
-                        name: marker.fields.titre,
-                        adress: marker.fields.adresse_to_geocode,
-                        lat: parseFloat(marker.geometry.coordinates[1]),
-                        lng: parseFloat(marker.geometry.coordinates[0])
+                        lat: this.marker.geometry.coordinates[1],
+                        lng: this.marker.geometry.coordinates[0]
                     }
-                })
+                }
+                return this.mapCoordinate
             }
         },
         methods: {
-            openWindow() {
-                this.window_open = true
+            updateZoom() {
+                this.mapZoom = 18
             }
         }
     }
 </script>
 
 <template lang="pug">
-    GmapMap.map(:zoom="6" :center="{ lat: 46, lng: 2 }")
-        GmapCluster(
-            :maxZoom="8"
-            :zoomOnClick="true"
+    GmapMap.map(:zoom="mapZoom" :center="markerFocus")
+        GmapMarker(
+            v-if="Object.keys(marker).length"
+            :position="{lat: marker.geometry.coordinates[1], lng: marker.geometry.coordinates[0]}"
+            :clickable="true"
+            @click="markerTooltip=true"
         )
-            GmapMarker(
-                :key="index"
-                v-for="(m, index) in chartData"
-                :position="m"
-                :clickable="true"
-                @click="openWindow"
-            )
-            GmapInfoWindow(
-                v-for="(m, index) in chartData"
-                :key="`widow-${index}`"
-                :opened="window_open" 
-                @closeclick="window_open=false" 
-                :options="{pixelOffset: {width: 0,height: -35}}"
-                :position="m"
-            ) 
-                .map-marker__tooltip-name {{m.name }} 
-                .map-marker__tooltip-adress {{m.adress}}
+        GmapInfoWindow(
+            v-if="Object.keys(marker).length"
+            :options="{pixelOffset: {width: 0,height: -35}}"
+            :position="{lat: marker.geometry.coordinates[1], lng: marker.geometry.coordinates[0]}"
+            :opened="markerTooltip"
+            @closeclick="markerTooltip=false"
+        ) 
+            .map-marker__tooltip-name {{marker.fields.titre}}
+            .map-marker__tooltip-adress {{marker.fields.adresse_to_geocode}}
 </template>
 
 <style lang="scss" scoped>

@@ -44,7 +44,7 @@
                 search: ``,
                 territories: {},
                 selectedTerritory: ``,
-                markers: []
+                marker: {}
             }
         },
         mounted() {
@@ -61,7 +61,7 @@
         },
         methods: {
             addMarkerToMap(e) {
-                if (!this.markers.includes(e)) return this.markers.push(e)
+                this.marker = e
             },
             async fetchData(nuxtContext) {
                 if (this.nhits <= this.apiPaging) return
@@ -132,7 +132,7 @@
             main
                 openasso-search-table(:data="records" :total-associations="nhits" @addMarkerToMap="addMarkerToMap" :loading="loading")
             aside
-                openasso-search-map(:data="data" :markers="markers")
+                openasso-search-map(:marker="marker")
 </template>
 
 <style lang="scss" scoped>
