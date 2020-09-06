@@ -18,7 +18,7 @@
         )
             a-menu-item(key="/")
                 nuxt-link(to="/") Rechercher
-            a-menu-item(key="explorer" disabled)                                                                                           
+            a-menu-item(key="/explorer")                                                                                           
                 nuxt-link(to="/explorer") Explorer
         a-button(class="export-data-btn" type="danger" ghost icon="download" href="https://public.opendatasoft.com/explore/dataset/associations/download/?format=csv&timezone=Europe/Berlin&lang=fr&use_labels_for_header=true&csv_separator=%3B") Exporter l'intégralité du jeu de données (csv)
 </template>
