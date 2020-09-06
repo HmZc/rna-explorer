@@ -85,7 +85,7 @@
     }
     nav {
         grid-area: nav;
-        border: 1px solid #e8e8e8;
+        border: 1px solid var(--c-border-color);
     }
     main {
         grid-area: content;

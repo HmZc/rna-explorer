@@ -1,8 +1,12 @@
 :root {
-    --bg-scheme-blue: #364f6b;
-    --bg-scheme-turquoise: #3fc1c9;
-    --bg-scheme-grey: #f5f5f5;
-    --bg-scheme-pink: #fc5185;
+    --c-bg-scheme-blue: #364f6b;
+    --c-bg-scheme-turquoise: #3fc1c9;
+    --c-bg-scheme-grey: #f5f5f5;
+    --c-bg-scheme-pink: #fc5185;
+
+    --c-border-color: #e8e8e8;
+
+    --c-text-lighter: #949494;
 
     --gutter: 1rem;
     --big-gutter: 2rem;
@@ -10,24 +14,38 @@
     --header-height: 64px;
 }
 
-/* Ant Design Vue table style */
+/* 
+Ant Design Vue table style
+https://medium.com/vuejs-tips/override-scoped-css-de4275119b87
+ */
+
+.ant-table.ant-table-small {
+    border-radius: none;
+    border: none;
+}
+
 .ant-table-tbody {
     font-size: 0.8rem;
 }
+
 .ant-table-tbody--row-grey {
     background: whitesmoke;
 }
+
 .ant-table-expanded-row {
     color: #949494;
 }
+
 .ant-table td,
 .ant-table-thead tr {
     white-space: nowrap;
 }
+
 .ant-table-pagination.ant-pagination {
     &::after {
         display: none;
     }
+
     float: left !important;
     margin: 10px 0 !important;
     display: flex;

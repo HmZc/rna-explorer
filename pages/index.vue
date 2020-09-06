@@ -151,6 +151,7 @@
     }
     nav {
         grid-area: nav;
+        border: 1px solid var(--c-border-color);
     }
     aside {
         grid-area: aside;
