@@ -1,8 +1,9 @@
+
+<img src="https://i.servimg.com/u/f45/12/16/25/08/openas11.png" height="210" align="right">
+<img src="https://i.servimg.com/u/f45/12/16/25/08/openas11.png" height="210" align="right">
 Une application web open source offrant un outil de recherche ainsi qu'un module d'analyse exploratoire (sous forme de dataviz) des différentes associations relevant de la [loi du 1er juillet 1901](https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=LEGITEXT000006069570)
 . Les données utilisées proviennent actuellement des APIs (V1) publiques d'Opendatasoft.
 
-<img src="https://i.servimg.com/u/f45/12/16/25/08/openas11.png" height="210" >
-<img src="https://i45.servimg.com/u/f45/12/16/25/08/openas10.png" height="210">
 
 ## A venir
 
