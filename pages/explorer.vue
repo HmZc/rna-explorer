@@ -2,21 +2,26 @@
     import Qs from 'qs'
     import * as apiRoutesHelper from '~/helpers/api-routes'
     import OpenassoHeader from '~/components/openasso-header.vue'
-    import OpenassoSidebar from '~/components/search/openasso-sidebar.vue'
-    import OpenassoChartBar from '~/components/charts/openasso-chart-bar.vue'
+    import OpenassoChartByTerritory from '~/components/charts/openasso-by-territory.vue'
+    import OpenassoChartByCreationDate from '~/components/charts/openasso-by-creation-date.vue'
 
     export default {
         components: {
             OpenassoHeader,
-            OpenassoSidebar,
-            OpenassoChartBar
+            OpenassoChartByTerritory,
+            OpenassoChartByCreationDate
         },
         async asyncData(nuxtContext) {
             const { $axios } = nuxtContext
             try {
                 const response = await $axios.$get(apiRoutesHelper.list(), {
                     params: {
-                        facet: [`nom_reg`, `commune`, `nom_dep`],
+                        facet: [
+                            `nom_reg`,
+                            `commune`,
+                            `nom_dep`,
+                            `datedeclaration`
+                        ],
                         rows: 50
                     },
                     paramsSerializer: (params) => {
@@ -31,8 +36,14 @@
         data() {
             return {
                 data: [],
-                test: [],
                 height: 0
+            }
+        },
+        computed: {
+            formatedCreationDateData() {
+                return this.data.facet_groups.filter(
+                    (facet) => facet.name === 'datedeclaration'
+                )[0].facets
             }
         },
         mounted() {
@@ -41,15 +52,6 @@
         methods: {
             matchHeight() {
                 this.height = this.$refs.main.clientHeight
-            },
-            selectedMesh(selectedMesh) {
-                this.test = selectedMesh
-                this.updateData(selectedMesh)
-            },
-            updateData(selectedMesh) {
-                return (this.test = this.data.facet_groups.find(
-                    (mesh) => mesh.name === selectedMesh
-                ).facets)
             }
         }
     }
@@ -62,23 +64,24 @@
             header
                 a-layout-header.header
                     openasso-header
-            nav
-                OpenassoSidebar(@selectedMesh="selectedMesh")
             main(ref="main")
-                OpenassoChartBar(:data="test" :height="height")
+                OpenassoChartByTerritory( class="chart-total" :data="data.facet_groups" :height="height")
+                OpenassoChartByCreationDate(class="chart-declaration-date" :data="formatedCreationDateData" :height="height")
+
   
 </template>
 
 <style lang="scss" scoped>
-    .container {
+    main {
+        background: whitesmoke;
         display: grid;
-        grid-template-areas:
-            'header header header'
-            'nav content content';
-        grid-template-rows: 64px auto;
-        grid-template-columns: 270px 1000px auto; // ~~~~
+        grid-template-areas: 'chart-total chart-declaration-date';
+        grid-template-columns: 1fr 1fr;
         grid-gap: 0;
-        height: 100vh;
+        grid-column-gap: var(--big-gutter);
+        height: calc(100vh - var(--header-height));
+        padding: var(--big-gutter) var(--big-gutter);
+        box-sizing: 0;
     }
     header {
         grid-area: header;
@@ -87,8 +90,10 @@
         grid-area: nav;
         border: 1px solid var(--c-border-color);
     }
-    main {
-        grid-area: content;
-        background: #e6f7fe;
+    .chart-total {
+        grid-area: chart-total;
+    }
+    .chart-declaration-date {
+        grid-area: chart-declaration-date;
     }
 </style>

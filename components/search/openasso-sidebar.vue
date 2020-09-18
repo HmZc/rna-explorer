@@ -1,6 +1,5 @@
 <script>
     import debounce from 'lodash.debounce'
-    import * as sidebarHelpers from '~/helpers/sidebar.js'
     export default {
         name: `openasso-sidebar`,
         props: {
@@ -16,30 +15,13 @@
                 // if you use v-model
                 // Otherwise placeholder will not show up
                 // https://github.com/ant-design/ant-design/issues/5768
-                selectedTerritory: undefined,
-                selectedMesh: ``
+                selectedTerritory: undefined
             }
-        },
-        computed: {
-            isHome() {
-                // Should make be re thinked if cases > 2
-                return this.$route.name === 'index'
-            }
-        },
-        mounted() {
-            this.defaultMesh()
         },
         created() {
             this.updatedSearch = debounce(this.updatedSearch, 300)
         },
         methods: {
-            defaultMesh() {
-                this.selectedMesh = sidebarHelpers.getDefaultMesh()
-                return this.$emit(
-                    `selectedMesh`,
-                    sidebarHelpers.getDefaultMesh()
-                )
-            },
             formatedNhits() {
                 return new Intl.NumberFormat('fr-FR').format(
                     this.totalAssociations
@@ -54,9 +36,6 @@
                     selectBoxValue: this.selectedTerritory,
                     type: 'input'
                 })
-            },
-            meshes() {
-                return sidebarHelpers.MESHES
             }
         }
     }
@@ -64,53 +43,37 @@
 
 <template lang="pug">
     .sidebar
-        .sidebar-header(v-if="isHome") 
+        .sidebar-header
             .sidebar-header__title Nombre total d'associations : {{ selectedTerritory }}
             .sidebar-header__total {{ formatedNhits() }}
         .sidebar-inner
-            div(v-if="isHome")
-                a-input-search(
-                    v-model="search"
-                    placeholder="recherche par mot-clé"
-                    @change="updatedSearch()"
-                )
-                a-select(
-                    v-model="selectedTerritory"
-                    placeholder="filtrer par région"
-                    class="sidebar-inner__select"
-                    allow-clear
-                    option-label-prop="label"
-                    @change="$emit('selectedTerritory', {selectBoxValue: $event, searchBoxValue: search,type: 'select'})"
-                )
-                    a-select-option(
-                        v-for="territory in territories.facet_groups[1].facets"
-                        :key="territory.path"
-                        :label="territory.path"
-                        class="sidebar-inner__select-item"
-                    )
-                        a-badge(
-                            class="sidebar-inner__select-item-count"
-                            :count="territory.count | bigNumber"
-                            :number-style="{backgroundColor: '#fff',fontSize: '.7rem',color: '#999',boxShadow: '0 0 0 1px #d9d9d9 inset'}"
-                        )
-                        span.sidebar-inner__select-item-path {{ territory.path }}
-                download-csv.sidebar-inner__download(:data="data.map((item) => item.fields)")
-                    a-button(block type="primary" :disabled="enableDownload" large icon="download" title="Limité aux 50 premiers échantillons") Exporter le resultat (csv)
+            a-input-search(
+                v-model="search"
+                placeholder="recherche par mot-clé"
+                @change="updatedSearch()"
+            )
             a-select(
-                v-if="!isHome"
-                v-model="selectedMesh"
-                placeholder="Changer la maille"
+                v-model="selectedTerritory"
+                placeholder="filtrer par région"
                 class="sidebar-inner__select"
                 allow-clear
-                @change="$emit('selectedMesh', selectedMesh)"  
+                option-label-prop="label"
+                @change="$emit('selectedTerritory', {selectBoxValue: $event, searchBoxValue: search,type: 'select'})"
             )
                 a-select-option(
-                    v-for="mesh in meshes()"
-                    :key="mesh.key"
-                    :label="mesh.label"
+                    v-for="territory in territories.facet_groups[1].facets"
+                    :key="territory.path"
+                    :label="territory.path"
                     class="sidebar-inner__select-item"
                 )
-                    span {{ mesh.label }} 
+                    a-badge(
+                        class="sidebar-inner__select-item-count"
+                        :count="territory.count | bigNumber"
+                        :number-style="{backgroundColor: '#fff',fontSize: '.7rem',color: '#999',boxShadow: '0 0 0 1px #d9d9d9 inset'}"
+                    )
+                    span.sidebar-inner__select-item-path {{ territory.path }}
+            download-csv.sidebar-inner__download(:data="data.map((item) => item.fields)")
+                a-button(block type="primary" :disabled="enableDownload" large icon="download" title="Limité aux 50 premiers échantillons") Exporter le resultat (csv)
 </template>
 
 <style lang="scss" scoped>
