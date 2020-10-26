@@ -8,6 +8,7 @@
         },
         data() {
             return {
+                selectedRow: ``,
                 tagRegex: /(?![^(]*\)),/g,
                 columns: [
                     {
@@ -41,12 +42,17 @@
                     },
                     {
                         title: 'actions',
-
                         fixed: 'right',
                         width: 115,
                         scopedSlots: { customRender: 'actions' }
                     }
                 ]
+            }
+        },
+        methods: {
+            addMarkerToMap(selectedRow) {
+                this.selectedRow = selectedRow.recordid
+                this.$emit('addMarkerToMap', selectedRow)
             }
         }
     }
@@ -77,6 +83,6 @@
                 target="_blank"
             ) site internet
             a-divider( type="vertical" )
-            a-icon(@click="$emit('addMarkerToMap', actions)" v-if="actions.geometry" type="pushpin" theme="twoTone" style="fontSize:1.2em" title="afficher sur la carte")
+            a-icon(@click="addMarkerToMap(actions)" v-if="actions.geometry" type="pushpin" theme="twoTone" style="fontSize:1.2em;" :two-tone-color="selectedRow == actions.recordid ? `#ff4d4f` : ``" title="afficher sur la carte")
         p(slot="expandedRowRender" slot-scope="record" style="margin: 0") {{ record.fields.objet ? record.fields.objet : 'Description non renseignée'}}
 </template>
