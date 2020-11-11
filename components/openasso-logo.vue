@@ -5,7 +5,7 @@
 </script>
 
 <template lang="pug">
-    h1.logo OpenAsso
+    h1.logo RNA Explorer
 </template>
 
 <style lang="scss" scoped>
