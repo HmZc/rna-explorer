@@ -71,6 +71,7 @@
             :pagination="false"
             :loading="loading"
             :row-key="(record, i) => `item-${i}`"
+            :expand-row-by-click="true"
     )
         span(slot="nom" slot-scope="nom")   
             span(v-html="nom.titre ? nom.titre: nom.nouveau_titre ? nom.nouveau_titre : nom.ancien_titre ? nom.ancien_titre:`<a href='https://www.google.fr/search?q=RNA ${nom.idassoc}' target='_blank' title='recherche externe avec RNA &#8599;'>NOM INTROUVABLE</a>` ")
