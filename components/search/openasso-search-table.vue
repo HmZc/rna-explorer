@@ -83,6 +83,6 @@
                 target="_blank"
             ) site internet
             a-divider( type="vertical" )
-            a-icon(@click="addMarkerToMap(actions)" v-if="actions.geometry" type="pushpin" theme="twoTone" style="fontSize:1.2em;" :two-tone-color="selectedRow == actions.recordid ? `#ff4d4f` : ``" title="afficher sur la carte")
+            a-icon(@click.stop="addMarkerToMap(actions)" v-if="actions.geometry" type="pushpin" theme="twoTone" style="fontSize:1.2em;" :two-tone-color="selectedRow == actions.recordid ? `#ff4d4f` : ``" title="afficher sur la carte")
         p(slot="expandedRowRender" slot-scope="record" style="margin: 0") {{ record.fields.objet ? record.fields.objet : 'Description non renseignée'}}
 </template>
