@@ -142,7 +142,7 @@
             'header header header'
             'nav content aside';
         grid-template-rows: 64px auto;
-        grid-template-columns: 270px 1000px auto; // ~~~~
+        grid-template-columns: 270px 60% auto; // ~~~~
         grid-gap: 0;
         height: 100vh;
     }
