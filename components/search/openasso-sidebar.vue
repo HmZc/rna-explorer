@@ -49,7 +49,7 @@
         .sidebar-inner
             a-input-search(
                 v-model="search"
-                placeholder="recherche par mot-clé"
+                placeholder="recherche par mot-clé, RNA"
                 @change="updatedSearch()"
             )
             a-select(

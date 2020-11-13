@@ -5,7 +5,9 @@
 </script>
 
 <template lang="pug">
-    h1.logo RNA Explorer
+    h1.logo 
+        | RNA 
+        span.logo--light-weight Explorer
 </template>
 
 <style lang="scss" scoped>
@@ -15,5 +17,8 @@
         margin: 0;
         min-width: 220px;
         float: left;
+    }
+    .logo--light-weight {
+        font-weight: 100;
     }
 </style>
