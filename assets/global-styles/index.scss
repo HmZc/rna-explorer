@@ -26,30 +26,13 @@ https://medium.com/vuejs-tips/override-scoped-css-de4275119b87
 
 .ant-table-tbody {
     font-size: 0.8rem;
+    cursor: pointer;
 }
 
 .ant-table-tbody--row-grey {
     background: whitesmoke;
 }
-
-.ant-table-expanded-row {
-    color: #949494;
-}
-
 .ant-table td,
 .ant-table-thead tr {
     white-space: nowrap;
-}
-
-.ant-table-pagination.ant-pagination {
-    &::after {
-        display: none;
-    }
-
-    float: left !important;
-    margin: 10px 0 !important;
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    font-size: 1.2rem;
 }
