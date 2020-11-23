@@ -48,25 +48,23 @@
             }
         },
         mounted() {
-            // try accessing by using refs
-            const tableContent = document.querySelector('.ant-table-body')
-            tableContent.addEventListener('scroll', (event) => {
+            // Should be a plugin
+            const table = document.querySelector('.ant-table-body')
+            const scroll = (event) => {
                 const maxScroll =
                     event.target.scrollHeight - event.target.clientHeight
                 const currentScroll = event.target.scrollTop
                 if (currentScroll >= maxScroll) {
                     this.fetchData()
                 }
-            })
+            }
+            table.addEventListener('scroll', scroll, false)
         },
         methods: {
-            addMarkerToMap(e) {
-                this.marker = e
-            },
             async fetchData(nuxtContext) {
                 if (this.nhits <= this.apiPaging) return
                 const { $axios } = this
-                this.loading = true
+                // this.loading = true
                 this.apiPaging += 50
                 const params = {
                     rows: 50,
@@ -79,7 +77,7 @@
                     const response = await $axios.$get(apiRoutesHelper.list(), {
                         params
                     })
-                    this.loading = false
+                    // this.loading = false
                     this.nhits = response.nhits
 
                     return [
@@ -90,6 +88,9 @@
             },
 
             async searchTerm(term) {
+                // Force table scroll position to top
+                document.querySelector('.ant-table-body').scrollTo(0, 0)
+
                 const { $axios } = this
                 this.loading = true
                 this.apiPaging = 0
@@ -109,6 +110,9 @@
                     this.records = response.records
                     this.nhits = response.nhits
                 } catch (error) {}
+            },
+            addMarkerToMap(e) {
+                this.marker = e
             }
         }
     }
