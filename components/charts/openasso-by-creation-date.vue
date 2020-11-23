@@ -27,10 +27,17 @@
                 return {
                     chartArea: {
                         width: '85%',
-                        height: '90%'
+                        height: '80%'
+                    },
+                    title:
+                        'Visualisation basée sur le jeu de données téléchargeable en haut à droite',
+                    titleTextStyle: {
+                        color: '#c1c1c1',
+                        bold: false,
+                        italic: true
                     },
                     curveType: 'function',
-                    height: this.height - 220,
+                    height: this.height - 150,
                     legend: 'none',
                     animation: {
                         duration: 500,
@@ -56,7 +63,7 @@
 
 <template lang="pug">
     div
-        h1(class="openasso-by-creation-date_title") Création d'associations depuis 2005
+        h1(class="openasso-by-creation-date_title") Évolution du nombre de créations d'associations depuis 2005
         GChart( 
             type="LineChart"
             :data="formatedData" 

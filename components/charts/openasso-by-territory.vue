@@ -21,12 +21,19 @@
             chartOptions() {
                 // colors should be variables
                 return {
+                    title:
+                        'Visualisation basée sur le jeu de données téléchargeable en haut à droite',
+                    titleTextStyle: {
+                        color: '#c1c1c1',
+                        bold: false,
+                        italic: true
+                    },
                     legend: 'none',
                     colors: ['#1890ff'],
-                    height: this.height - 220,
+                    height: this.height - 150,
                     chartArea: {
                         width: '70%',
-                        height: '90%'
+                        height: '80%'
                     },
                     tooltip: {
                         textStyle: { color: '#001529', fontSize: '14' },
