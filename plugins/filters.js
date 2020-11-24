@@ -10,4 +10,5 @@ Vue.filter(`bigNumber`, (value) => {
 
 Vue.filter(`truncate`, (value, limit) => {
     if (value.length > limit) return value.substring(0, limit) + ` ...`
+    return value
 })
