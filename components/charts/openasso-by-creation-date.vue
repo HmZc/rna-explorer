@@ -8,7 +8,7 @@
         },
         props: {
             data: { type: Array, required: true, default: () => [] },
-            height: { type: Number, required: false }
+            height: { type: Number, required: true, default: 800 }
         },
         computed: {
             formatedData() {

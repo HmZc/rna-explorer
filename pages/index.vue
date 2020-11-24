@@ -1,7 +1,7 @@
 <script>
     import Qs from 'qs'
+    import { Layout } from 'ant-design-vue'
     import * as apiRoutesHelper from '~/helpers/api-routes'
-
     import OpenassoHeader from '~/components/openasso-header.vue'
     import OpenassoSearchTable from '~/components/search/openasso-search-table.vue'
     import OpenassoSearchMap from '~/components/search/openasso-search-map.vue'
@@ -9,6 +9,8 @@
 
     export default {
         components: {
+            'a-layout': Layout,
+            'a-layout-header': Layout.Header,
             OpenassoHeader,
             OpenassoSearchTable,
             OpenassoSearchMap,

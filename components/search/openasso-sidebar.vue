@@ -1,7 +1,16 @@
 <script>
     import debounce from 'lodash.debounce'
+    import { Select, Badge, Input, Button } from 'ant-design-vue'
+
     export default {
         name: `openasso-sidebar`,
+        components: {
+            'a-select': Select,
+            'a-badge': Badge,
+            'a-input': Input,
+            'a-input-search': Input.Search,
+            'a-button': Button
+        },
         props: {
             data: { type: Array, default: () => [] },
             totalAssociations: { type: Number, default: () => 0 },

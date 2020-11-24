@@ -1,6 +1,15 @@
 <script>
+    import { Table, Tooltip, Icon, Tag, Divider } from 'ant-design-vue'
+
     export default {
         name: `openasso-search-table`,
+        components: {
+            'a-table': Table,
+            'a-tooltip': Tooltip,
+            'a-icon': Icon,
+            'a-tag': Tag,
+            'a-divider': Divider
+        },
         props: {
             data: { type: Array, required: true },
             totalAssociations: { type: Number, required: true },

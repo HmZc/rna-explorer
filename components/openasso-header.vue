@@ -1,9 +1,16 @@
 <script>
+    import { Layout, Menu, Button } from 'ant-design-vue'
     import OpenassoLogo from '~/components/openasso-logo.vue'
 
     export default {
         name: `openasso-header`,
-        components: { OpenassoLogo }
+        components: {
+            OpenassoLogo,
+            'a-layout-header': Layout.Header,
+            'a-menu': Menu,
+            'a-menu-item': Menu.Item,
+            'a-button': Button
+        }
     }
 </script>
 

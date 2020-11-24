@@ -1,16 +1,19 @@
 <script>
+    import { Select } from 'ant-design-vue'
     import { GChart } from 'vue-google-charts'
     import * as explorerHelpers from '~/helpers/explorer.js'
 
     export default {
         name: `openasso-by-territory`,
         components: {
+            'a-select': Select,
+            'a-select-option': Select.Option,
             GChart,
             explorerHelpers
         },
         props: {
             data: { type: Array, required: true, default: () => [] },
-            height: { type: Number, required: false }
+            height: { type: Number, required: true, default: 800 }
         },
         data() {
             return {

@@ -1,7 +1,7 @@
 {
-    "name": "assos-finder",
+    "name": "RNA finder",
     "version": "1.0.0",
-    "description": "recherche d&#39;associations",
+    "description": "Explorateur d&#39;associations",
     "author": "hamza",
     "private": true,
     "scripts": {
@@ -14,7 +14,6 @@
         "heroku-postbuild": "npm run build"
     },
     "dependencies": {
-        "@google/markerclusterer": "^2.0.8",
         "@nuxtjs/axios": "^5.3.6",
         "@nuxtjs/style-resources": "^1.0.0",
         "ant-design-vue": "^1.5.1",

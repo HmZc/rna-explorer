@@ -11,16 +11,16 @@ module.exports = {
             { charset: 'utf-8' },
             {
                 name: 'viewport',
-                content: 'width=device-width, initial-scale=1',
+                content: 'width=device-width, initial-scale=1'
             },
             {
                 hid: 'description',
                 name: 'RNA Explorer',
                 content:
-                    "outil de recherche d'associations basé sur le répertoire national des associations francaises",
-            },
+                    "outil de recherche d'associations basé sur le répertoire national des associations francaises"
+            }
         ],
-        link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+        link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     },
     /*
      ** Customize the progress-bar color
@@ -34,18 +34,17 @@ module.exports = {
      ** Plugins to load before mounting the App
      */
     plugins: [
-        { src: `@/plugins/antd-ui`, ssr: true },
         { src: '~plugins/filters', ssr: true },
         { src: '~plugins/vue-json-csv', ssr: true },
         { src: '~plugins/vue-google-charts', ssr: true },
-        { src: '@/plugins/vue2-google-maps', ssr: true },
+        { src: '@/plugins/vue2-google-maps', ssr: true }
     ],
     /*
      ** Nuxt.js dev-modules
      */
     buildModules: [
         // Doc: https://github.com/nuxt-community/eslint-module
-        '@nuxtjs/eslint-module',
+        '@nuxtjs/eslint-module'
     ],
     /*
      ** Nuxt.js modules
@@ -54,9 +53,9 @@ module.exports = {
         // Doc: https://axios.nuxtjs.org/usage
         [
             '@nuxtjs/axios',
-            { baseURL: 'https://public.opendatasoft.com/api/records/1.0/' },
+            { baseURL: 'https://public.opendatasoft.com/api/records/1.0/' }
         ],
-        '@nuxtjs/style-resources',
+        '@nuxtjs/style-resources'
     ],
     /*
      ** Axios module configuration
@@ -67,11 +66,11 @@ module.exports = {
      ** Build configuration
      */
     build: {
-        transpile: ['vue2-google-maps'],
+        transpile: ['vue2-google-maps']
     },
     env: {
-        GMAP_API_KEY: process.env.GMAP_API_KEY,
+        GMAP_API_KEY: process.env.GMAP_API_KEY
     },
     // nuxt collects anonymous telemetry data about general usage by asking everytime the permission...
-    telemetry: false,
+    telemetry: false
 }

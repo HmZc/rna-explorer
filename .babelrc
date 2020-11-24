@@ -1,16 +1,26 @@
 {
-  "env": {
-    "test": {
-      "presets": [
-        [
-          "@babel/preset-env",
-          {
-            "targets": {
-              "node": "current"
-            }
-          }
-        ]
-      ]
+    "env": {
+        "test": {
+            "plugins": [
+                [
+                    "import",
+                    {
+                        "libraryName": "ant-design-vue",
+                        "libraryDirectory": "es",
+                        "style": "css"
+                    }
+                ] // `style: true` for less
+            ],
+            "presets": [
+                [
+                    "@babel/preset-env",
+                    {
+                        "targets": {
+                            "node": "current"
+                        }
+                    }
+                ]
+            ]
+        }
     }
-  }
 }
