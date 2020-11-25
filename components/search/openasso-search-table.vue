@@ -39,7 +39,7 @@
                         dataIndex: 'fields.theme_libelle',
                         scopedSlots: { customRender: 'tags' },
                         ellipsis: true,
-                        width: 500
+                        width: 350
                     },
                     {
                         title: 'département',
@@ -53,9 +53,8 @@
                         width: 160
                     },
                     {
-                        title: 'actions',
-                        fixed: 'right',
-                        width: 62,
+                        title: 'site',
+                        width: 40,
                         scopedSlots: { customRender: 'actions' }
                     }
                 ]
@@ -69,7 +68,10 @@
                 return {
                     on: {
                         click: (event) => {
-                            if (selectedRow.geometry)
+                            if (
+                                selectedRow.geometry ||
+                                selectedRow.fields.siege_social.length
+                            )
                                 return this.addMarkerToMap(selectedRow)
                             return this.$notification.error({
                                 message:
@@ -115,7 +117,4 @@
                 @click.stop
             ) 
                 a-icon(type="global" title="Aller vers le site internet")
-            a-divider(type="vertical")
-            a(:disabled="!actions.geometry" @click.stop="addMarkerToMap(actions)") 
-                a-icon(type="pushpin")
 </template>

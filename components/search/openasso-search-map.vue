@@ -24,14 +24,18 @@
                 }
             }
         },
-        computed: {
-            markerFocus() {
+        watch: {
+            marker() {
                 if (Object.keys(this.marker).length) {
-                    this.updateZoom()
-                    return {
-                        lat: this.marker.geometry.coordinates[1],
-                        lng: this.marker.geometry.coordinates[0]
+                    if ('geometry' in this.marker) {
+                        this.mapCoordinate = {
+                            lat: this.marker.geometry.coordinates[1],
+                            lng: this.marker.geometry.coordinates[0]
+                        }
+                    } else {
+                        this.convertAddressToCoordinates()
                     }
+                    this.updateZoom()
                 }
                 return this.mapCoordinate
             }
@@ -39,28 +43,44 @@
         methods: {
             updateZoom() {
                 this.mapZoom = 18
+            },
+            async convertAddressToCoordinates() {
+                const { $axios } = this
+                const address = this.marker.fields.siege_social.replace(
+                    /  +/g,
+                    ' '
+                )
+                try {
+                    const response = await $axios.$get(
+                        `https://nominatim.openstreetmap.org/search.php?q=${address}&format=jsonv2`
+                    )
+                    this.mapCoordinate = {
+                        lat: parseFloat(response[0].lat),
+                        lng: parseFloat(response[0].lon)
+                    }
+                } catch (error) {}
             }
         }
     }
 </script>
 
 <template lang="pug">
-    GmapMap.map(:zoom="mapZoom" :center="markerFocus")
+    GmapMap.map(:zoom="mapZoom" :center="mapCoordinate")
         GmapMarker(
             v-if="Object.keys(marker).length"
-            :position="{lat: marker.geometry.coordinates[1], lng: marker.geometry.coordinates[0]}"
+            :position="mapCoordinate"
             :clickable="true"
             @click="markerTooltip=true"
         )
         GmapInfoWindow(
             v-if="Object.keys(marker).length"
             :options="{pixelOffset: {width: 0,height: -35}}"
-            :position="{lat: marker.geometry.coordinates[1], lng: marker.geometry.coordinates[0]}"
+            :position="mapCoordinate"
             :opened="markerTooltip"
             @closeclick="markerTooltip=false"
         ) 
-            .map-marker__tooltip-name {{marker.fields.titre}}
-            .map-marker__tooltip-adress {{marker.fields.adresse_to_geocode}}
+            .map-marker__tooltip-name {{marker.fields.nouveau_titre || marker.fields.titre}}
+            .map-marker__tooltip-adress {{marker.fields.siege_social || marker.fields.adresse_to_geocode}}
 </template>
 
 <style lang="scss" scoped>
