@@ -6,6 +6,7 @@
         name: `openasso-sidebar`,
         components: {
             'a-select': Select,
+            'a-select-option': Select.Option,
             'a-badge': Badge,
             'a-input': Input,
             'a-input-search': Input.Search,
