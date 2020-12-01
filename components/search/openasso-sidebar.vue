@@ -2,8 +2,11 @@
     import debounce from 'lodash.debounce'
     import { Select, Badge, Input, Button } from 'ant-design-vue'
 
+    const APP_VERSION = process.env.APP_VERSION
+
     export default {
         name: `openasso-sidebar`,
+        APP_VERSION,
         components: {
             'a-select': Select,
             'a-select-option': Select.Option,
@@ -30,6 +33,11 @@
         },
         created() {
             this.updatedSearch = debounce(this.updatedSearch, 300)
+        },
+        computed: {
+            AppVersion() {
+                return APP_VERSION
+            }
         },
         methods: {
             formatedNhits() {
@@ -84,9 +92,14 @@
                     span.sidebar-inner__select-item-path {{ territory.path }}
             download-csv.sidebar-inner__download(:data="data.map((item) => item.fields)")
                 a-button(block type="primary" :disabled="enableDownload" large icon="download" title="Limité aux 50 premiers échantillons") Exporter le resultat (csv)
+        .sidebar-footer Version : {{AppVersion}}
 </template>
 
 <style lang="scss" scoped>
+    .sidebar {
+        position: relative;
+        height: 100%;
+    }
     .sidebar-header {
         padding: var(--gutter);
         background: #e6f7fe;
@@ -112,5 +125,12 @@
     }
     .sidebar-inner__select-item-path {
         font-size: 0.8em;
+    }
+    .sidebar-footer {
+        position: absolute;
+        bottom: 10px;
+        text-align: center;
+        color: var(--c-text-lighter);
+        width: 100%;
     }
 </style>

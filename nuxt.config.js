@@ -69,7 +69,8 @@ module.exports = {
         transpile: ['vue2-google-maps']
     },
     env: {
-        GMAP_API_KEY: process.env.GMAP_API_KEY
+        GMAP_API_KEY: process.env.GMAP_API_KEY,
+        APP_VERSION: require('./package.json').version
     },
     // nuxt collects anonymous telemetry data about general usage by asking everytime the permission...
     telemetry: false
