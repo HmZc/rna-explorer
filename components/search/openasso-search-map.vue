@@ -12,15 +12,15 @@
         data() {
             return {
                 isMarkerTooltipVisible: true,
-                mapCoordinate: DEFAULT_COORDINATE,
-                mapZoom: DEFAULT_ZOOM.out
+                setMapCoordinate: DEFAULT_COORDINATE,
+                setMapZoom: DEFAULT_ZOOM.out
             }
         },
         watch: {
             setMarker() {
                 if (Object.keys(this.setMarker).length) {
                     if ('geometry' in this.setMarker) {
-                        this.mapCoordinate = {
+                        this.setMapCoordinate = {
                             lat: this.setMarker.geometry.coordinates[1],
                             lng: this.setMarker.geometry.coordinates[0]
                         }
@@ -29,12 +29,12 @@
                     }
                     this.updateZoom()
                 }
-                return this.mapCoordinate
+                return this.setMapCoordinate
             }
         },
         methods: {
             updateZoom() {
-                this.mapZoom = DEFAULT_ZOOM.in
+                this.setMapZoom = DEFAULT_ZOOM.in
             },
             async convertAddressToCoordinates() {
                 const { $axios } = this
@@ -44,12 +44,10 @@
                 )
                 try {
                     const response = await $axios.$get(
-                        `https://nominatim.openstreetmap.org/search.php?q=${address}&format=jsonv2`
+                        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GMAP_API_KEY}`
                     )
-                    this.mapCoordinate = {
-                        lat: parseFloat(response[0].lat),
-                        lng: parseFloat(response[0].lon)
-                    }
+                    this.setMapCoordinate =
+                        response.results[0].geometry.location
                 } catch (error) {}
             }
         }
@@ -57,17 +55,17 @@
 </script>
 
 <template lang="pug">
-    GmapMap.map(:zoom="mapZoom" :center="mapCoordinate")
+    GmapMap.map(:zoom="setMapZoom" :center="setMapCoordinate")
         GmapMarker(
             v-if="Object.keys(setMarker).length"
-            :position="mapCoordinate"
+            :position="setMapCoordinate"
             :clickable="true"
             @click="isMarkerTooltipVisible=true"
         )
         GmapInfoWindow(
             v-if="Object.keys(setMarker).length"
             :options="{pixelOffset: {width: 0,height: -35}}"
-            :position="mapCoordinate"
+            :position="setMapCoordinate"
             :opened="isMarkerTooltipVisible"
             @closeclick="isMarkerTooltipVisible=false"
         ) 
