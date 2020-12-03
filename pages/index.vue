@@ -1,5 +1,5 @@
 <script>
-    import Qs from 'qs'
+    import Qs from 'qs' // A querystring parsing and stringifying library
     import { Layout } from 'ant-design-vue'
     import * as apiRoutesHelper from '~/helpers/api-routes'
     import OpenassoHeader from '~/components/openasso-header.vue'
@@ -29,24 +29,22 @@
                     }
                 })
                 return {
-                    data: response,
                     records: response.records,
                     nhits: response.nhits,
-                    territories: response
+                    territories: response.facet_groups[1].facets
                 }
             } catch (error) {}
         },
         data() {
             return {
                 apiPaging: 0,
-                data: [],
                 records: [],
                 nhits: 0,
-                loading: false,
+                isTableLoading: false,
                 search: ``,
                 territories: {},
                 selectedTerritory: ``,
-                marker: {}
+                setMarker: {}
             }
         },
         mounted() {
@@ -66,7 +64,6 @@
             async fetchData(nuxtContext) {
                 if (this.nhits <= this.apiPaging) return
                 const { $axios } = this
-                // this.loading = true
                 this.apiPaging += 50
                 const params = {
                     rows: 50,
@@ -79,7 +76,6 @@
                     const response = await $axios.$get(apiRoutesHelper.list(), {
                         params
                     })
-                    // this.loading = false
                     this.nhits = response.nhits
 
                     return [
@@ -92,9 +88,8 @@
             async searchTerm(term) {
                 // Force table scroll position to top
                 document.querySelector('.ant-table-body').scrollTo(0, 0)
-
                 const { $axios } = this
-                this.loading = true
+                this.isTableLoading = true
                 this.apiPaging = 0
                 const params = {
                     rows: 50,
@@ -107,14 +102,11 @@
                         params
                     })
                     this.selectedTerritory = term.selectBoxValue
-                    this.loading = false
+                    this.isTableLoading = false
                     this.search = term.searchBoxValue
                     this.records = response.records
                     this.nhits = response.nhits
                 } catch (error) {}
-            },
-            addMarkerToMap(e) {
-                this.marker = e
             }
         }
     }
@@ -136,9 +128,9 @@
                     @selectedTerritory="searchTerm"
                 )
             main
-                openasso-search-table(:data="records" :total-associations="nhits" @addMarkerToMap="addMarkerToMap" :loading="loading")
+                openasso-search-table(:data="records" @addMarkerToMap="setMarker = $event" :loading="isTableLoading")
             aside
-                openasso-search-map(:marker="marker")
+                openasso-search-map(:setMarker="setMarker")
 </template>
 
 <style lang="scss" scoped>

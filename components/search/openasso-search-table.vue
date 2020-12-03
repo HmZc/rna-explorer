@@ -12,7 +12,6 @@
         },
         props: {
             data: { type: Array, required: true },
-            totalAssociations: { type: Number, required: true },
             loading: { type: Boolean, required: true }
         },
         data() {

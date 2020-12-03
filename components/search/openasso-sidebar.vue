@@ -16,14 +16,14 @@
             'a-button': Button
         },
         props: {
-            data: { type: Array, default: () => [] },
+            associations: { type: Array, default: () => [] },
             totalAssociations: { type: Number, default: () => 0 },
-            territories: { type: Object, default: () => ({}) }
+            territories: { type: Array, default: () => ({}) }
         },
         data() {
             return {
-                search: '',
-                enableDownload: true,
+                search: ``,
+                isDownloadable: false,
                 // ANTDV - select box (placeholder): should be init with the following value: undefined
                 // if you use v-model
                 // Otherwise placeholder will not show up
@@ -31,28 +31,27 @@
                 selectedTerritory: undefined
             }
         },
-        created() {
-            this.updatedSearch = debounce(this.updatedSearch, 300)
-        },
         computed: {
             AppVersion() {
                 return APP_VERSION
             }
         },
+        created() {
+            this.updatedSearch = debounce(this.updatedSearch, 300)
+        },
         methods: {
             formatedNhits() {
-                return new Intl.NumberFormat('fr-FR').format(
+                return new Intl.NumberFormat(`fr-FR`).format(
                     this.totalAssociations
                 )
             },
             updatedSearch() {
                 this.search.length
-                    ? (this.enableDownload = false)
-                    : (this.enableDownload = true)
+                    ? (this.isDownloadable = true)
+                    : (this.isDownloadable = false)
                 return this.$emit(`search`, {
                     searchBoxValue: this.search,
-                    selectBoxValue: this.selectedTerritory,
-                    type: 'input'
+                    selectBoxValue: this.selectedTerritory
                 })
             }
         }
@@ -76,10 +75,10 @@
                 class="sidebar-inner__select"
                 allow-clear
                 option-label-prop="label"
-                @change="$emit('selectedTerritory', {selectBoxValue: $event, searchBoxValue: search,type: 'select'})"
+                @change="updatedSearch()"
             )
                 a-select-option(
-                    v-for="territory in territories.facet_groups[1].facets"
+                    v-for="territory in territories"
                     :key="territory.path"
                     :label="territory.path"
                     class="sidebar-inner__select-item"
@@ -90,8 +89,8 @@
                         :number-style="{backgroundColor: '#fff',fontSize: '.7rem',color: '#999',boxShadow: '0 0 0 1px #d9d9d9 inset'}"
                     )
                     span.sidebar-inner__select-item-path {{ territory.path }}
-            download-csv.sidebar-inner__download(:data="data.map((item) => item.fields)")
-                a-button(block type="primary" :disabled="enableDownload" large icon="download" title="Limité aux 50 premiers échantillons") Exporter le resultat (csv)
+            download-csv.sidebar-inner__download(:data="associations.map((item) => item.fields)")
+                a-button(block type="primary" :disabled="!isDownloadable" large icon="download" title="Limité aux 50 premiers échantillons") Exporter le resultat (csv)
         .sidebar-footer Version : {{AppVersion}}
 </template>
 

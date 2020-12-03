@@ -1,36 +1,28 @@
 <script>
-    import GmapCluster from 'vue2-google-maps/dist/components/cluster'
+    const DEFAULT_COORDINATE = { lat: 46, lng: 2 }
+    const DEFAULT_ZOOM = { out: 5, in: 18 }
+
     export default {
         name: `openasso-search-map`,
-        components: {
-            GmapCluster
-        },
+        DEFAULT_COORDINATE,
+        DEFAULT_ZOOM,
         props: {
-            marker: { type: Object, required: true, default: () => ({}) }
+            setMarker: { type: Object, required: true, default: () => ({}) }
         },
         data() {
             return {
-                markerTooltip: true,
-                mapCoordinate: { lat: 46, lng: 2 },
-                mapZoom: 5,
-                chartSettings: {
-                    mapsApiKey: process.env.GMAP_API_KEY,
-                    packages: ['map']
-                },
-                chartOptions: {
-                    showTooltip: true,
-                    showInfoWindow: true,
-                    mapType: 'normal'
-                }
+                isMarkerTooltipVisible: true,
+                mapCoordinate: DEFAULT_COORDINATE,
+                mapZoom: DEFAULT_ZOOM.out
             }
         },
         watch: {
-            marker() {
-                if (Object.keys(this.marker).length) {
-                    if ('geometry' in this.marker) {
+            setMarker() {
+                if (Object.keys(this.setMarker).length) {
+                    if ('geometry' in this.setMarker) {
                         this.mapCoordinate = {
-                            lat: this.marker.geometry.coordinates[1],
-                            lng: this.marker.geometry.coordinates[0]
+                            lat: this.setMarker.geometry.coordinates[1],
+                            lng: this.setMarker.geometry.coordinates[0]
                         }
                     } else {
                         this.convertAddressToCoordinates()
@@ -42,11 +34,11 @@
         },
         methods: {
             updateZoom() {
-                this.mapZoom = 18
+                this.mapZoom = DEFAULT_ZOOM.in
             },
             async convertAddressToCoordinates() {
                 const { $axios } = this
-                const address = this.marker.fields.siege_social.replace(
+                const address = this.setMarker.fields.siege_social.replace(
                     /  +/g,
                     ' '
                 )
@@ -67,20 +59,20 @@
 <template lang="pug">
     GmapMap.map(:zoom="mapZoom" :center="mapCoordinate")
         GmapMarker(
-            v-if="Object.keys(marker).length"
+            v-if="Object.keys(setMarker).length"
             :position="mapCoordinate"
             :clickable="true"
-            @click="markerTooltip=true"
+            @click="isMarkerTooltipVisible=true"
         )
         GmapInfoWindow(
-            v-if="Object.keys(marker).length"
+            v-if="Object.keys(setMarker).length"
             :options="{pixelOffset: {width: 0,height: -35}}"
             :position="mapCoordinate"
-            :opened="markerTooltip"
-            @closeclick="markerTooltip=false"
+            :opened="isMarkerTooltipVisible"
+            @closeclick="isMarkerTooltipVisible=false"
         ) 
-            .map-marker__tooltip-name {{marker.fields.nouveau_titre || marker.fields.titre}}
-            .map-marker__tooltip-adress {{marker.fields.siege_social || marker.fields.adresse_to_geocode}}
+            .map-marker__tooltip-name {{setMarker.fields.nouveau_titre || setMarker.fields.titre}}
+            .map-marker__tooltip-adress {{setMarker.fields.siege_social || setMarker.fields.adresse_to_geocode}}
 </template>
 
 <style lang="scss" scoped>
