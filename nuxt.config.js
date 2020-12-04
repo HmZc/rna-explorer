@@ -17,7 +17,7 @@ module.exports = {
                 hid: 'description',
                 name: 'RNA Explorer',
                 content:
-                    "outil de recherche d'associations basé sur le répertoire national des associations francaises"
+                    "outil de recherche d'associations basé sur le RNA : répertoire national des associations."
             }
         ],
         link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]

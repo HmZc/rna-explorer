@@ -104,7 +104,7 @@
         template(slot="id" slot-scope="id, record, index") {{index}}
         a-tooltip(slot="nom" slot-scope="nom" placement="right")
             template(slot="title") {{nom.objet | truncate(500) || `Description introuvable`}}
-            span(v-html="nom.titre ? nom.titre: nom.nouveau_titre ? nom.nouveau_titre : nom.ancien_titre ? nom.ancien_titre:`<a onclick='event.stopPropagation()' rel='noreferrer' href='https://www.google.fr/search?q=RNA ${nom.idassoc}' target='_blank' title='recherche externe avec RNA &#8599;'>NOM INTROUVABLE POUR RNA ${nom.idassoc} &#8599;</a>` ")
+            span(v-html="nom.titre ? nom.titre: nom.nouveau_titre ? nom.nouveau_titre : nom.ancien_titre ? nom.ancien_titre:`<a onclick='event.stopPropagation()' rel='noreferrer' href='https://www.google.fr/search?q=RNA ${nom.idassoc}' target='_blank' title='recherche externe avec RNA &#8599;'>NOM INTROUVABLE POUR ${nom.idassoc} &#8599;</a>` ")
         template(slot="tags" slot-scope="tags")
             a-tag(v-for="tag in tags ? tags.split(tagRegex) : tags" :key="tag" color="blue") {{tag}}
         template(slot="actions" slot-scope="actions")

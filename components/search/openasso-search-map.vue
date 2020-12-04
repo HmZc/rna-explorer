@@ -1,7 +1,7 @@
 <script>
+    import * as apiRoutesHelper from '~/helpers/api-routes'
     const DEFAULT_COORDINATE = { lat: 46, lng: 2 }
     const DEFAULT_ZOOM = { out: 5, in: 18 }
-
     export default {
         name: `openasso-search-map`,
         DEFAULT_COORDINATE,
@@ -36,13 +36,12 @@
         methods: {
             async convertAddressToCoordinates() {
                 const { $axios } = this
-                const address = this.setMarker.fields.siege_social.replace(
-                    /  +/g,
-                    ' '
+                const address = this.$options.filters.singleSpace(
+                    this.setMarker.fields.siege_social
                 )
                 try {
                     const response = await $axios.$get(
-                        `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GMAP_API_KEY}`
+                        apiRoutesHelper.geocode({ address })
                     )
                     if (response.results.length) {
                         this.isMarkerTooltipVisible = true

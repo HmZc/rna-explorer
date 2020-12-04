@@ -66,7 +66,7 @@
         .sidebar-inner
             a-input-search(
                 v-model="search"
-                placeholder="recherche par mot-clé, RNA"
+                placeholder="recherche par mot-clé, n°RNA"
                 @change="updatedSearch()"
             )
             a-select(

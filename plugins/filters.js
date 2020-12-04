@@ -12,3 +12,7 @@ Vue.filter(`truncate`, (value, limit) => {
     if (value.length > limit) return value.substring(0, limit) + ` ...`
     return value
 })
+
+Vue.filter(`singleSpace`, (value) => {
+    return value.replace(/  +/g, ' ')
+})
