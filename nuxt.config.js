@@ -35,6 +35,7 @@ module.exports = {
      */
     plugins: [
         { src: '~plugins/filters', ssr: true },
+        { src: '~plugins/ant-notification', ssr: true },
         { src: '~plugins/vue-json-csv', ssr: true },
         { src: '~plugins/vue-google-charts', ssr: true },
         { src: '@/plugins/vue2-google-maps', ssr: true }

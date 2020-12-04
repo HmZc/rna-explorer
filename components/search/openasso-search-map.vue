@@ -11,7 +11,7 @@
         },
         data() {
             return {
-                isMarkerTooltipVisible: true,
+                isMarkerTooltipVisible: false,
                 setMapCoordinate: DEFAULT_COORDINATE,
                 setMapZoom: DEFAULT_ZOOM.out
             }
@@ -24,18 +24,16 @@
                             lat: this.setMarker.geometry.coordinates[1],
                             lng: this.setMarker.geometry.coordinates[0]
                         }
+                        this.isMarkerTooltipVisible = true
                     } else {
                         this.convertAddressToCoordinates()
                     }
-                    this.updateZoom()
+                    this.setMapZoom = DEFAULT_ZOOM.in
                 }
                 return this.setMapCoordinate
             }
         },
         methods: {
-            updateZoom() {
-                this.setMapZoom = DEFAULT_ZOOM.in
-            },
             async convertAddressToCoordinates() {
                 const { $axios } = this
                 const address = this.setMarker.fields.siege_social.replace(
@@ -46,9 +44,26 @@
                     const response = await $axios.$get(
                         `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GMAP_API_KEY}`
                     )
-                    this.setMapCoordinate =
-                        response.results[0].geometry.location
+                    if (response.results.length) {
+                        this.isMarkerTooltipVisible = true
+                        return (this.setMapCoordinate =
+                            response.results[0].geometry.location)
+                    }
+                    this.resetMap()
+                    this.openNotification(address)
                 } catch (error) {}
+            },
+            openNotification(address) {
+                this.$notification.error({
+                    message: `Impossible d'afficher sur la carte l'adresse suivante : ${address}`,
+                    placement: 'bottomRight',
+                    duration: 0
+                })
+            },
+            resetMap() {
+                this.setMapZoom = DEFAULT_ZOOM.out
+                this.setMapCoordinate = DEFAULT_COORDINATE
+                this.isMarkerTooltipVisible = false
             }
         }
     }
@@ -57,13 +72,13 @@
 <template lang="pug">
     GmapMap.map(:zoom="setMapZoom" :center="setMapCoordinate")
         GmapMarker(
-            v-if="Object.keys(setMarker).length"
+            :visible="isMarkerTooltipVisible"
             :position="setMapCoordinate"
             :clickable="true"
             @click="isMarkerTooltipVisible=true"
         )
         GmapInfoWindow(
-            v-if="Object.keys(setMarker).length"
+            v-if="isMarkerTooltipVisible"
             :options="{pixelOffset: {width: 0,height: -35}}"
             :position="setMapCoordinate"
             :opened="isMarkerTooltipVisible"
