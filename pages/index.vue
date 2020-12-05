@@ -2,10 +2,10 @@
     import Qs from 'qs' // A querystring parsing and stringifying library
     import { Layout } from 'ant-design-vue'
     import * as apiRoutesHelper from '~/helpers/api-routes'
-    import OpenassoHeader from '~/components/openasso-header.vue'
-    import OpenassoSearchTable from '~/components/search/openasso-search-table.vue'
-    import OpenassoSearchMap from '~/components/search/openasso-search-map.vue'
-    import OpenassoSidebar from '~/components/search/openasso-sidebar.vue'
+    import OpenassoHeader from '~/components/layout/openasso-header.vue'
+    import OpenassoSearchTable from '~/components/openasso-table.vue'
+    import OpenassoSearchMap from '~/components/openasso-map.vue'
+    import OpenassoSidebar from '~/components/layout/openasso-sidebar.vue'
 
     export default {
         components: {

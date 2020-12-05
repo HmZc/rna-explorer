@@ -2,7 +2,7 @@
     import Qs from 'qs'
     import { Layout } from 'ant-design-vue'
     import * as apiRoutesHelper from '~/helpers/api-routes'
-    import OpenassoHeader from '~/components/openasso-header.vue'
+    import OpenassoHeader from '~/components/layout/openasso-header.vue'
     import OpenassoChartByTerritory from '~/components/charts/openasso-by-territory.vue'
     import OpenassoChartByCreationDate from '~/components/charts/openasso-by-creation-date.vue'
 
