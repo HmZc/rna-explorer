@@ -3,7 +3,7 @@
     const DEFAULT_COORDINATE = { lat: 46, lng: 2 }
     const DEFAULT_ZOOM = { out: 5, in: 18 }
     export default {
-        name: `openasso-search-map`,
+        name: `rnaexplorer-search-map`,
         DEFAULT_COORDINATE,
         DEFAULT_ZOOM,
         props: {

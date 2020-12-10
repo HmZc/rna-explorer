@@ -1,6 +1,6 @@
 <script>
     export default {
-        name: `openasso-logo`
+        name: `rnaexplorer-logo`
     }
 </script>
 

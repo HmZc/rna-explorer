@@ -5,7 +5,7 @@
     const APP_VERSION = process.env.APP_VERSION
 
     export default {
-        name: `openasso-sidebar`,
+        name: `rnaexplorer-sidebar`,
         APP_VERSION,
         components: {
             'a-select': Select,

@@ -4,7 +4,7 @@
     import * as explorerHelpers from '~/helpers/explorer.js'
 
     export default {
-        name: `openasso-by-territory`,
+        name: `rnaexplorer-by-territory`,
         components: {
             'a-select': Select,
             'a-select-option': Select.Option,
@@ -83,11 +83,11 @@
 </script>
 
 <template lang="pug">
-    div(class="openasso-by-territory_container")
-        div(class="openasso-by-territory_heading")
-            h1(class="openasso-by-territory_title") Total d'associations - Maille :  
+    div(class="rnaexplorer-by-territory_container")
+        div(class="rnaexplorer-by-territory_heading")
+            h1(class="rnaexplorer-by-territory_title") Total d'associations - Maille :  
             a-select(
-                class="openasso-by-territory_select"
+                class="rnaexplorer-by-territory_select"
                 v-model="selectedMesh"
                 @change="updateMesh(selectedMesh)"
             )
@@ -105,14 +105,14 @@
 </template>
 
 <style lang="scss" scoped>
-    .openasso-by-territory_heading {
+    .rnaexplorer-by-territory_heading {
         display: flex;
         align-items: baseline;
     }
-    .openasso-by-territory_title {
+    .rnaexplorer-by-territory_title {
         font-size: 1.3rem;
     }
-    .openasso-by-territory_select {
+    .rnaexplorer-by-territory_select {
         min-width: 200px;
         margin-left: 10px;
     }

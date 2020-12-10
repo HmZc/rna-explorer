@@ -2,19 +2,19 @@
     import Qs from 'qs' // A querystring parsing and stringifying library
     import { Layout } from 'ant-design-vue'
     import * as apiRoutesHelper from '~/helpers/api-routes'
-    import OpenassoHeader from '~/components/layout/openasso-header.vue'
-    import OpenassoSearchTable from '~/components/openasso-table.vue'
-    import OpenassoSearchMap from '~/components/openasso-map.vue'
-    import OpenassoSidebar from '~/components/layout/openasso-sidebar.vue'
+    import RnaexplorerHeader from '~/components/layout/rnaexplorer-header.vue'
+    import RnaexplorerSearchTable from '~/components/rnaexplorer-table.vue'
+    import RnaexplorerSearchMap from '~/components/rnaexplorer-map.vue'
+    import RnaexplorerSidebar from '~/components/layout/rnaexplorer-sidebar.vue'
 
     export default {
         components: {
             'a-layout': Layout,
             'a-layout-header': Layout.Header,
-            OpenassoHeader,
-            OpenassoSearchTable,
-            OpenassoSearchMap,
-            OpenassoSidebar
+            RnaexplorerHeader,
+            RnaexplorerSearchTable,
+            RnaexplorerSearchMap,
+            RnaexplorerSidebar
         },
         async asyncData(nuxtContext) {
             const { $axios } = nuxtContext
@@ -118,9 +118,9 @@
         .container
             header
                 a-layout-header.header
-                    openasso-header
+                    rnaexplorer-header
             nav
-                openasso-sidebar(
+                rnaexplorer-sidebar(
                     :data="records"
                     :total-associations="nhits"
                     :territories="territories"
@@ -128,9 +128,9 @@
                     @selectedTerritory="searchTerm"
                 )
             main
-                openasso-search-table(:data="records" @addMarkerToMap="setMarker = $event" :loading="isTableLoading")
+                rnaexplorer-search-table(:data="records" @addMarkerToMap="setMarker = $event" :loading="isTableLoading")
             aside
-                openasso-search-map(:setMarker="setMarker")
+                rnaexplorer-search-map(:setMarker="setMarker")
 </template>
 
 <style lang="scss" scoped>

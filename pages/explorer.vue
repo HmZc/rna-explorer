@@ -2,16 +2,16 @@
     import Qs from 'qs'
     import { Layout } from 'ant-design-vue'
     import * as apiRoutesHelper from '~/helpers/api-routes'
-    import OpenassoHeader from '~/components/layout/openasso-header.vue'
-    import OpenassoChartByTerritory from '~/components/charts/openasso-by-territory.vue'
-    import OpenassoChartByCreationDate from '~/components/charts/openasso-by-creation-date.vue'
+    import RnaexplorerHeader from '~/components/layout/rnaexplorer-header.vue'
+    import RnaexplorerChartByTerritory from '~/components/charts/rnaexplorer-by-territory.vue'
+    import RnaexplorerChartByCreationDate from '~/components/charts/rnaexplorer-by-creation-date.vue'
 
     export default {
         components: {
             'a-layout-header': Layout.Header,
-            OpenassoHeader,
-            OpenassoChartByTerritory,
-            OpenassoChartByCreationDate
+            RnaexplorerHeader,
+            RnaexplorerChartByTerritory,
+            RnaexplorerChartByCreationDate
         },
         async asyncData(nuxtContext) {
             const { $axios } = nuxtContext
@@ -65,10 +65,10 @@
         .container
             header
                 a-layout-header.header
-                    openasso-header
+                    rnaexplorer-header
             main(ref="main")
-                OpenassoChartByTerritory( class="chart-total" :data="data.facet_groups" :height="height")
-                OpenassoChartByCreationDate(class="chart-declaration-date" :data="formatedCreationDateData" :height="height")
+                RnaexplorerChartByTerritory( class="chart-total" :data="data.facet_groups" :height="height")
+                RnaexplorerChartByCreationDate(class="chart-declaration-date" :data="formatedCreationDateData" :height="height")
 
   
 </template>

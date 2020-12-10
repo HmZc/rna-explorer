@@ -2,7 +2,7 @@
     import { GChart } from 'vue-google-charts'
 
     export default {
-        name: `openasso-by-creation-date`,
+        name: `rnaexplorer-by-creation-date`,
         components: {
             GChart
         },
@@ -63,7 +63,7 @@
 
 <template lang="pug">
     div
-        h1(class="openasso-by-creation-date_title") Évolution du nombre de créations d'associations depuis 2005
+        h1(class="rnaexplorer-by-creation-date_title") Évolution du nombre de créations d'associations depuis 2005
         GChart( 
             type="LineChart"
             :data="formatedData" 
@@ -72,7 +72,7 @@
 </template>
 
 <style lang="scss" scoped>
-    .openasso-by-creation-date_title {
+    .rnaexplorer-by-creation-date_title {
         font-size: 1.3rem;
     }
 </style>

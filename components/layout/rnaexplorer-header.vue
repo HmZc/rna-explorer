@@ -1,11 +1,11 @@
 <script>
     import { Layout, Menu, Button } from 'ant-design-vue'
-    import OpenassoLogo from '~/components/ui/openasso-logo.vue'
+    import RnaexplorerLogo from '~/components/ui/rnaexplorer-logo.vue'
 
     export default {
-        name: `openasso-header`,
+        name: `rnaexplorer-header`,
         components: {
-            OpenassoLogo,
+            RnaexplorerLogo,
             'a-layout-header': Layout.Header,
             'a-menu': Menu,
             'a-menu-item': Menu.Item,
@@ -16,7 +16,7 @@
 
 <template lang="pug">
     a-layout-header 
-        openasso-logo
+        rnaexplorer-logo
         a-menu(
             theme="dark"
             mode="horizontal"

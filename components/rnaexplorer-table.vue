@@ -2,7 +2,7 @@
     import { Table, Tooltip, Icon, Tag, Divider } from 'ant-design-vue'
 
     export default {
-        name: `openasso-search-table`,
+        name: `rnaexplorer-search-table`,
         components: {
             'a-table': Table,
             'a-tooltip': Tooltip,
