@@ -1,6 +1,6 @@
 <img  src="https://i.servimg.com/u/f45/12/16/25/08/rna-ex10.png"  height="500"  align="right">
 
-<p>Ceci est une réutilisation sous forme d'application, du jeu de données : _journal officiel des associations et fondations d'entreprise._
+<p>Ceci est une réutilisation sous forme d'application, du jeu de données : journal officiel des associations et fondations d'entreprise.
 
 L'application offre différentes interactions segmentées en deux onglets : "rechercher" et "explorer".
 
@@ -21,7 +21,9 @@ A la racine du projet `touch .env`, puis definir la variable suivante : `GMAP_AP
 
 <div  style="clear: both;"></div>
 
-## Commandes de build
+## Commandes :
+
+Builder l'application en mode development :
 
 ```bash
 # install dependencies
@@ -29,9 +31,6 @@ $ yarn
 
 # serve with hot reload at localhost:3000
 $ yarn dev
-
-# run tests
-yarn test
 ```
 
 ## Contribuer
