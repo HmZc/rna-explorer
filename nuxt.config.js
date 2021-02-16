@@ -37,7 +37,8 @@ module.exports = {
         { src: '~plugins/ant-notification', ssr: true },
         { src: '~plugins/vue-json-csv', ssr: true },
         { src: '~plugins/vue-google-charts', ssr: true },
-        { src: '@/plugins/vue2-google-maps', ssr: true }
+        { src: '~/plugins/vue2-google-maps', ssr: true },
+        { src: '~plugins/vue-github-button', ssr: false }
     ],
     /*
      ** Nuxt.js dev-modules

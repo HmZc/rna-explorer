@@ -63,7 +63,7 @@
         .sidebar-header
             .sidebar-header__title Nombre total d'associations : {{ selectedTerritory }}
             .sidebar-header__total {{ formatedNhits() }}
-        .sidebar-inner
+        .sidebar-body
             a-input-search(
                 v-model="search"
                 placeholder="recherche par mot-clé, n°RNA"
@@ -73,7 +73,7 @@
             a-select(
                 v-model="selectedTerritory"
                 placeholder="filtrer par région"
-                class="sidebar-inner__select"
+                class="sidebar-body__select"
                 allow-clear
                 option-label-prop="label"
                 @change="updatedSearch()"
@@ -82,17 +82,22 @@
                     v-for="territory in territories"
                     :key="territory.path"
                     :label="territory.path"
-                    class="sidebar-inner__select-item"
+                    class="sidebar-body__select-item"
                 )
                     a-badge(
-                        class="sidebar-inner__select-item-count"
+                        class="sidebar-body__select-item-count"
                         :count="territory.count | bigNumber"
                         :number-style="{backgroundColor: '#fff',fontSize: '.7rem',color: '#999',boxShadow: '0 0 0 1px #d9d9d9 inset'}"
                     )
-                    span.sidebar-inner__select-item-path {{ territory.path }}
-            download-csv.sidebar-inner__download(:data="associations.map((item) => item.fields)")
+                    span.sidebar-body__select-item-path {{ territory.path }}
+            download-csv.sidebar-body__download(:data="associations.map((item) => item.fields)")
                 a-button(block type="primary" :disabled="!isDownloadable" large icon="download" title="Limité aux 50 premiers échantillons") Exporter le resultat (csv)
-        .sidebar-footer Version : {{AppVersion}}
+        .sidebar-footer
+            span Version : {{AppVersion}}
+            .sidebar-footer__github
+                client-only
+                    github-button(href="https://github.com/HmZc/rna-explorer" data-icon="octicon-star" data-size="small" aria-label="Star HmZc/rna-explorer on GitHub") Star        
+
 </template>
 
 <style lang="scss" scoped>
@@ -110,20 +115,20 @@
     .sidebar-header__title {
         font-size: 0.8rem;
     }
-    .sidebar-inner {
+    .sidebar-body {
         padding: var(--big-gutter) var(--gutter);
     }
-    .sidebar-inner__select {
+    .sidebar-body__select {
         width: 100%;
         margin: var(--gutter) 0;
     }
-    .sidebar-inner__download {
+    .sidebar-body__download {
         bottom: var(--big-gutter);
     }
-    .sidebar-inner__select-item-count {
+    .sidebar-body__select-item-count {
         float: right;
     }
-    .sidebar-inner__select-item-path {
+    .sidebar-body__select-item-path {
         font-size: 0.8em;
     }
     .sidebar-footer {
