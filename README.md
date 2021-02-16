@@ -15,23 +15,26 @@ Les données consomées par cette dernière proviennent d'une API exposée via <
 -   VueJS (Nuxt)
 -   Heroku
 
-## Variable d'environnement :
-
-A la racine du projet `touch .env`, puis definir la variable suivante : `GMAP_API_KEY`
-
-<div  style="clear: both;"></div>
-
 ## Commandes :
 
 Builder l'application en mode development :
 
 ```bash
+# Node & Yarn : We recommend you have the latest LTS version installed
+# -----------
+
 # install dependencies
 $ yarn
 
 # serve with hot reload at localhost:3000
 $ yarn dev
 ```
+
+<div  style="clear: both;"></div>
+
+## Variable d'environnement :
+
+A la racine du projet `touch .env`, puis definir la variable suivante : `GMAP_API_KEY`
 
 ## Contribuer
 
