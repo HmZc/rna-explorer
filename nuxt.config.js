@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 module.exports = {
+    target: 'static', // default is 'server'
     /*
      ** Headers of the page
      */
