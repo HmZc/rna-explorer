@@ -93,6 +93,7 @@
             download-csv.sidebar-body__download(:data="associations.map((item) => item.fields)")
                 a-button(block type="primary" :disabled="!isDownloadable" large icon="download" title="Limité aux 50 premiers échantillons") Exporter le resultat (csv)
         .sidebar-footer
+            p(class="sidebar-footer__text") Application web basée sur le répertoire national des associations (registre officiel recensant l’ensemble des informations sur les associations nationales, loi 1901). RNA Explorer met à disposition une interface web permettant d'explorer le RNA sous différentes formes.
             span Version : {{AppVersion}}
             .sidebar-footer__github
                 client-only
@@ -137,5 +138,10 @@
         text-align: center;
         color: var(--c-text-lighter);
         width: 100%;
+    }
+    .sidebar-footer__text {
+        padding: var(--big-gutter);
+        font-size: 0.8rem;
+        color: var(--c-text-lighter);
     }
 </style>

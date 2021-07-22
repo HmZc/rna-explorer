@@ -108,6 +108,17 @@
                     this.nhits = response.nhits
                 } catch (error) {}
             }
+        },
+        head: {
+            title: 'RNA EXPLORER - Rechercher',
+            meta: [
+                {
+                    hid: 'home-desc',
+                    name: 'description',
+                    content:
+                        'Rechercher rapidement des associations recensées au sein du répertoire national des associations grâce à RNA Explorer'
+                }
+            ]
         }
     }
 </script>

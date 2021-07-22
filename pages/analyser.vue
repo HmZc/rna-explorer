@@ -55,6 +55,17 @@
             matchHeight() {
                 this.height = this.$refs.main.clientHeight
             }
+        },
+        head: {
+            title: 'RNA EXPLORER - Analyser',
+            meta: [
+                {
+                    hid: 'analyse-desc',
+                    name: 'description',
+                    content:
+                        'Représentation graphique des données issues du répertoire national des associations (RNA)'
+                }
+            ]
         }
     }
 </script>
